@@ -182,7 +182,7 @@ mode.bootcampP = {
 		system.bindKeyboard(n,46,true,true) -- Delete key
 		tfm.exec.chatMessage("<T>" .. system.getTranslation("welcome") .. "\n\t<CEP>/w Mquk #bootcamp+ @mapCode",n)
 		
-		local id = tfm.exec.addImage(".png","&0",400,200,n)
+		local id = tfm.exec.addImage("15c6ee6324d.png","&0",400,200,n)
 		system.newTimer(function()
 			tfm.exec.removeImage(id)
 		end,5000,false)
@@ -244,13 +244,13 @@ mode.bootcampP = {
 			tfm.exec.chatMessage("<T>" .. system.getTranslation("info"),n)
 		else
 			if system.roomAdmins[n] then
-				if p[1] == "next" then
+				if p[1] == "next" and os.time() > system.newGameTimer then
 					tfm.exec.newGame(table.random(mode.bootcampP.maps))
 					tfm.exec.chatMessage("<T>• " .. string.format(system.getTranslation("skip"),n))
-				elseif p[1] == "again" then
+				elseif p[1] == "again" and os.time() > system.newGameTimer then
 					tfm.exec.newGame(tfm.get.room.currentMap)
 					tfm.exec.chatMessage("<T>• " .. string.format(system.getTranslation("restart"),n))
-				elseif p[1] == "np" or p[1] == "map" then
+				elseif (p[1] == "np" or p[1] == "map") and os.time() > system.newGameTimer then
 					tfm.exec.newGame(p[2])
 					tfm.exec.chatMessage("<T>• " .. string.format(system.getTranslation("loadmap"),n,string.find(p[2],"@") and p[2] or "@"..p[2]))
 				elseif p[1] == "time" then
@@ -263,20 +263,35 @@ mode.bootcampP = {
 						tfm.exec.chatMessage(string.format(system.getTranslation("setstandtime",p[2])))
 					end
 				elseif p[1] == "checkpoint" then
-					mode.bootcampP.checkpoint = not mode.bootcampP.checkpoint
-					if not mode.bootcampP.checkpoint then
-						ui.removeTextArea(1,nil)
-						for k,v in next,mode.bootcampP.info do
-							v.checkpoint = {false,0,0}
-						end
-						if system.miscAttrib ~= 1 then
+					local attribute = false
+					if p[2] then
+						attribute = true
+						if p[2] == "not" and p[3] and p[3] == "cheese" then
 							mode.bootcampP.respawnCheese = false
+						elseif p[2] == "cheese" then
+							mode.bootcampP.respawnCheese = true
+						else
+							attribute = false
 						end
 					end
-					if p[2] and p[2] == "cheese" then
-						mode.bootcampP.respawnCheese = not mode.bootcampP.respawnCheese
+					
+					if not (mode.bootcampP.checkpoint and attribute) then
+						mode.bootcampP.checkpoint = not mode.bootcampP.checkpoint
+						tfm.exec.chatMessage("<T>Checkpoint " .. system.getTranslation(mode.bootcampP.checkpoint and "enabled" or "disabled"))
+					
+						if not mode.bootcampP.checkpoint then
+							ui.removeTextArea(1,nil)
+							for k,v in next,mode.bootcampP.info do
+								v.checkpoint = {false,0,0}
+							end
+							if system.miscAttrib ~= 1 then
+								mode.bootcampP.respawnCheese = false
+							end
+							for k,v in next,mode.bootcampP.info do
+								v.cheese = false
+							end
+						end
 					end
-					tfm.exec.chatMessage("<T>Checkpoint " .. system.getTranslation(mode.bootcampP.checkpoint and "enabled" or "disabled"))
 				elseif p[1] == "queue" then
 					if p[2] == "clear" then
 						mode.bootcampP.maps = {}
@@ -309,7 +324,7 @@ mode.bootcampP = {
 		if mode.bootcampP.checkpoint and mode.bootcampP.info[n].checkpoint[1] then
 			tfm.exec.movePlayer(n,mode.bootcampP.info[n].checkpoint[2],mode.bootcampP.info[n].checkpoint[3])
 		end
-		if mode.bootcampP.info[n].cheese and system.miscAttrib == 1 then
+		if mode.bootcampP.checkpoint and mode.bootcampP.info[n].cheese and mode.bootcampP.respawnCheese then
 			tfm.exec.giveCheese(n)
 		end
 	end,
@@ -325,6 +340,8 @@ mode.bootcampP = {
 	end,
 	-- Got Cheese
 	eventPlayerGetCheese = function(n)
-		mode.bootcampP.info[n].cheese = true
+		if mode.bootcampP.checkpoint and mode.bootcampP.respawnCheese then
+			mode.bootcampP.info[n].cheese = true
+		end
 	end,
 }
