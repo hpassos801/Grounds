@@ -60,13 +60,17 @@ combiner.run = function()
 		fileTree = {"src:Module","src:versionIssues:newVersion",}
 	end
 	for _,file in next,fileTree do
-		fullPath = string.format("%s%s.lua",modulePath,string.gsub(file,"%:","\\"))
+		local fullPath = string.format("%s%s.lua",modulePath,string.gsub(file,"%:","\\"))
+		local toInclude = string.format("--[[ %s ]]--\n",string.reverse(string.match(string.reverse(file),"[^:]+")))
+		
 		if file_exists(fullPath) == false then
-			print(string.format("File '%s' does not exist.", fullPath))
+			print(string.format("File '%s' does not exist.",fullPath))
 		else
 			local lines = lines_from(fullPath)
-			table.insert(dump,string.format("--[[ %s ]]--\n%s",string.reverse(string.match(string.reverse(file),"[^:]+")),lines))
+			toInclude = toInclude .. string.format("%s",lines)
 		end
+		
+		table.insert(dump,toInclude)
 	end
 	
 	buildFile = string.format("%s\\versions\\Grounds_%s.lua",modulePath,os.date("%d_%m_%y")) 
@@ -77,6 +81,5 @@ end
 
 combiner.run()
 
-os.execute("cls")
-io.write("Executed! (:")
+io.write("Executed!")
 os.execute("pause >nul")
