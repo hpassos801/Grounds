@@ -1690,6 +1690,7 @@ mode.grounds = {
 		end
 		
 		-- Init
+		mode.grounds.alivePlayers,mode.grounds.totalPlayers = system.players()
 		for _,f in next,{"AutoShaman","AutoScore","AutoNewGame","AutoTimeLeft","MinimalistMode","PhysicalConsumables"} do
 			tfm.exec["disable"..f]()
 		end
