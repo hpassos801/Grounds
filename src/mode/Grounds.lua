@@ -1379,6 +1379,9 @@ mode.grounds = {
 			color = "<S>"
 			title = "G"..data[3]
 			text = string.format("%s\n# %s\n@ %s",mode.grounds.G[data[3]].name,#mode.grounds.G[data[3]].queue,system.getTranslation("categories." .. data[3],n))
+			if mode.grounds.info[n].infoImage[#mode.grounds.info[n].infoImage] then
+				tfm.exec.removeImage(mode.grounds.info[n].infoImage[#mode.grounds.info[n].infoImage])
+			end
 			mode.grounds.info[n].infoImage[#mode.grounds.info[n].infoImage + 1] = tfm.exec.addImage(mode.grounds.G[data[3]].icon[1] .. ".png","&4",360 + mode.grounds.G[data[3]].icon[2],125 + mode.grounds.G[data[3]].icon[3],n)
 		elseif mode.grounds.staff[what] then
 			local comp = data[3]
