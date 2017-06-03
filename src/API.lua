@@ -1,4 +1,3 @@
---[[ API ]]--
 	-- Timers
 system.newGameTimer = 0
 
