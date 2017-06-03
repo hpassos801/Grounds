@@ -4653,7 +4653,7 @@ mode.bootcampP = {
 			welcome = "Welcome to <B>#Bootcamp+</B>! Type !info to check the commands\n\tReport any issue to Bolodefchoco!",
 			
 			-- Info
-			info = "Checkpoint:\n\tIf the checkpoint system is enabled, press <B>E</B> to put a checkpoint and <B>Shift+E</B> to remove it.\nAdmin\n\tIf you are a room admin, there are some commands that you can execute:\n\tMaps\n\t\t!next <V>--> Pass the map</V>\n\t\t!again <V>--> Resets the current map</V>\n\t\t!np @Code <VP>or</VP> !map @Code <V>--> Loads a map</V>\n\t\t!queue clear <V>--> Clear the map queue</V>\n\t\t!queue add @Code <V>--> Adds a map in the map queue</V>\n\t\t!queue P3 <VP>or</VP> P13 <VP>or</VP> P23 <V>--> Adds the whole official rotation of P3 or P13 or P23 in the map queue</V>\n\tTime\n\t\t!time TimeInMinutes <V>--> Set the time of the current round in TimeInMinutes</V>\n\t\t!standtime TimeInMinutes <V>--> Set the time of all the rounds in TimeInMinutes</V>\n\tOthers\n\t\t<B>Shift+Click</B> in a ground to read its properties\n\t\t!checkpoint <V>--> Enables/Disables the checkpoint system</V>\n\t\tKey Delete <V>--> Kills you</V>",
+			info = "Checkpoint:\n\tIf the checkpoint system is enabled, press <B>E</B> to put a checkpoint and <B>Shift+E</B> to remove it.\nAdmin\n\tIf you are a room admin, there are some commands that you can execute:\n\tMaps\n\t\t!next <V>--> Pass the map</V>\n\t\t!again <V>--> Resets the current map</V>\n\t\t!np @Code <VP>or</VP> !map @Code <V>--> Loads a map</V>\n\t\t!queue clear <V>--> Clear the map queue</V>\n\t\t!queue add @Code <V>--> Adds a map in the map queue</V>\n\t\t!queue P3 <VP>or</VP> P13 <VP>or</VP> P23 <V>--> Adds the whole official rotation of P3 or P13 or P23 in the map queue</V>\n\tTime\n\t\t!time TimeInMinutes <V>--> Set the time of the current round in TimeInMinutes</V>\n\t\t!standtime TimeInMinutes <V>--> Set the time of all the rounds in TimeInMinutes</V>\n\tOthers\n\t\t<B>Shift+Click</B> in a ground to read its properties\n\t\t!checkpoint [[not] cheese] <V>--> Enables/Disables the checkpoint system</V>\n\t\tKey Delete <V>--> Kills you</V>",
 			skip = "<VP>%s</VP> just skipped the map!",
 			restart = "<VP>%s</VP> just restarted the current map!",
 			loadmap = "<VP>%s</VP> just loaded the map %s!",
@@ -4671,7 +4671,7 @@ mode.bootcampP = {
 		br = {
 			welcome = "Bem-vindo ao <B>#Bootcamp+</B>! Digite !info para checar os comandos\n\tReporte quaisquer problemas para Bolodefchoco!",
 			
-			info = "Checkpoint:\n\tSe o sistema de checkpoint está ativado, pressione <B>E</B> para marcar um checkpoint e <B>Shift+E</B> para remove-lo.\nAdmin\n\tSe você é um administrador da sala, há alguns comandos que você pode executar:\n\tMapas\n\t\t!next <V>--> Passa o mapa</V>\n\t\t!again <V>--> Reinicia o mapa atual</V>\n\t\t!np @Código <VP>ou</VP> !map @Código <V>--> Carrega um mapa</V>\n\t\t!queue clear <V>--> Limpa a lista de mapas</V>\n\t\t!queue add @Código <V>--> Adiciona um mapa na lista de mapas</V>\n\t\t!queue P3 <VP>ou</VP> P13 <VP>ou</VP> P23 <V>--> Adiciona a rotação inteira de P3 ou P13 ou P23 na lista de mapas</V>\n\tTempo\n\t\t!time TempoEmMinutos <V>--> Define o tempo do mapa atual em TempoEmMinutos</V>\n\t\t!standtime TempoEmMinutos <V>--> Define o tempo de todas as partidas em TempoEmMinutos</V>\n\tOutros\n\t\t<B>Shift+Click</B> sobre um piso para ler suas propriedades\n\t\t!checkpoint <V>--> Ativa/Desativa o sistema de checkpoint</V>\n\t\tTecla Delete <V>--> Mata-o</V>",
+			info = "Checkpoint:\n\tSe o sistema de checkpoint está ativado, pressione <B>E</B> para marcar um checkpoint e <B>Shift+E</B> para remove-lo.\nAdmin\n\tSe você é um administrador da sala, há alguns comandos que você pode executar:\n\tMapas\n\t\t!next <V>--> Passa o mapa</V>\n\t\t!again <V>--> Reinicia o mapa atual</V>\n\t\t!np @Código <VP>ou</VP> !map @Código <V>--> Carrega um mapa</V>\n\t\t!queue clear <V>--> Limpa a lista de mapas</V>\n\t\t!queue add @Código <V>--> Adiciona um mapa na lista de mapas</V>\n\t\t!queue P3 <VP>ou</VP> P13 <VP>ou</VP> P23 <V>--> Adiciona a rotação inteira de P3 ou P13 ou P23 na lista de mapas</V>\n\tTempo\n\t\t!time TempoEmMinutos <V>--> Define o tempo do mapa atual em TempoEmMinutos</V>\n\t\t!standtime TempoEmMinutos <V>--> Define o tempo de todas as partidas em TempoEmMinutos</V>\n\tOutros\n\t\t<B>Shift+Click</B> sobre um piso para ler suas propriedades\n\t\t!checkpoint [[not] cheese] <V>--> Ativa/Desativa o sistema de checkpoint</V>\n\t\tTecla Delete <V>--> Mata-o</V>",
 			skip = "<VP>%s</VP> acabou de passar o mapa!",
 			restart = "<VP>%s</VP> acabou de reiniciar o mapa atual!",
 			loadmap = "<VP>%s</VP> acabou de carregar o mapa %s!",
@@ -4688,7 +4688,7 @@ mode.bootcampP = {
 		pl = {
 			welcome = "Witaj w <B>#Bootcamp+</B>! Wpisz !info na czacie aby sprawdzić jakie są komendy\n\tZgłaszaj wszelkie błędy do Bolodefchoco!",
 	
-			info = "Checkpoint:\n\tJeżeli system checkpointów jest włączony, kliknij <B>E</B>, aby ustawić checkpoint i <B>Shift+E</B>, aby go usunąć.\nAdmin\n\tJeżeli jesteś administratorem pokoju, jest kilka komend, które możesz użyć:\n\tMapy\n\t\t!next <V>--> Przełącza mapę</V>\n\t\t!again <V>--> Restartuje mapę</V>\n\t\t!np @Code <VP>albo</VP> !map @Code <V>--> Ładuje mapę</V>\n\t\t!queue clear <V>--> Czyści kolejkę map</V>\n\t\t!queue add @Code <V>--> Dodaję mapę do kolejki</V>\n\t\t!queue P3 <VP>albo</VP> P13 <VP>albo</VP> P23 <V>--> Dodaje wszystkie oficjalne rotacje z permów P3 albo P13 albo P23 do kolejki map</V>\n\tCzas\n\t\t!time CzasWMinutach <V>--> Ustawia czas obecnej mapy na CzasWMinutach</V>\n\t\t!standtime CzasWMinutach <V>--> Ustawia czas dla wszystkich rund na CzasWMinutach</V>\n\tInne\n\t\t<B>Shift+Click</B> na gruncie aby przeczytać jego właściwości\n\t\t!checkpoint <V>--> Włącza/Wyłącza system checkpointów</V>\n\t\tKey Delete <V>--> Kills you</V>",
+			info = "Checkpoint:\n\tJeżeli system checkpointów jest włączony, kliknij <B>E</B>, aby ustawić checkpoint i <B>Shift+E</B>, aby go usunąć.\nAdmin\n\tJeżeli jesteś administratorem pokoju, jest kilka komend, które możesz użyć:\n\tMapy\n\t\t!next <V>--> Przełącza mapę</V>\n\t\t!again <V>--> Restartuje mapę</V>\n\t\t!np @Code <VP>albo</VP> !map @Code <V>--> Ładuje mapę</V>\n\t\t!queue clear <V>--> Czyści kolejkę map</V>\n\t\t!queue add @Code <V>--> Dodaję mapę do kolejki</V>\n\t\t!queue P3 <VP>albo</VP> P13 <VP>albo</VP> P23 <V>--> Dodaje wszystkie oficjalne rotacje z permów P3 albo P13 albo P23 do kolejki map</V>\n\tCzas\n\t\t!time CzasWMinutach <V>--> Ustawia czas obecnej mapy na CzasWMinutach</V>\n\t\t!standtime CzasWMinutach <V>--> Ustawia czas dla wszystkich rund na CzasWMinutach</V>\n\tInne\n\t\t<B>Shift+Click</B> na gruncie aby przeczytać jego właściwości\n\t\t!checkpoint [[not] cheese] <V>--> Włącza/Wyłącza system checkpointów</V>\n\t\tKey Delete <V>--> Kills you</V>",
 			skip = "<VP>%s</VP> pominął/-ęła mapę!",
 			restart = "<VP>%s</VP> zrestartował/-a mapę!",
 			loadmap = "<VP>%s</VP> załadował/-a mapę %s!",
@@ -4709,7 +4709,7 @@ mode.bootcampP = {
 	-- Maps
 	maps = {},
 	map = function()
-		mode.bootcampP.maps = {6501305,6118143,2604997,2836937,6921682,3339586,5776126,5678468,5731571,6531399,6794559,5847160,5745650,7091808,7000003,6999993,4559999,4559344,4784241,3883780,4976520,4854044,6374076,3636206,3883883,6793803,4499335,4694197,5485847,6258690,938895,1719709,4209243,6550335,5994088,3866650,3999455,4095418,4523127,1964971,1554670,4423047,764650,6079942,556223,4883346,2978216,1947288,7025830,6822222,7096798,7108857,4766627,5888889,6782978,7035277,7151255,5699275,6422459,2634659,4808290,3620953,2973289,2604643,6591698,7134487,7054821,6928736,6930231,6900009,7159725,3737744,6933187,6864581,6807369,4701337,5277821,263226,6631702,6761156,4212122,7035055,6654599,4160675,4623227,5191670}
+		mode.bootcampP.maps = {6501305,6118143,2604997,2836937,6921682,3339586,5776126,5678468,5731571,6531399,6794559,5847160,5745650,7091808,7000003,6999993,4559999,4784241,3883780,4976520,4854044,6374076,3636206,3883883,6793803,4499335,4694197,5485847,6258690,938895,1719709,4209243,6550335,5994088,3866650,3999455,4095418,4523127,1964971,1554670,4423047,764650,6079942,556223,4883346,2978216,1947288,7025830,6822222,7096798,7108857,4766627,5888889,6782978,7035277,7151255,5699275,6422459,2634659,4808290,3620953,2973289,2604643,6591698,7134487,7054821,6928736,6930231,6900009,7159725,3737744,6933187,6864581,6807369,4701337,5277821,263226,6631702,6761156,4212122,7035055,6654599,4160675,4623227,5191670,7163009}
 	end,
 	-- New Game Settings
 	groundsData = {},
@@ -4850,7 +4850,7 @@ mode.bootcampP = {
 					local info = ""
 
 					for k,v in next,properties do
-						info = info .. string.format("<N>%s : <V>%s\n",v,(v == "ID" and i or v == "Type" and (({[0] = "Unknown","Wood","Ice","Trampoline","Lava","Chocolate","Earth","Grass","Sand","Cloud","Water","Stone","Snow","Rectangle","Circle","Spiderweb"})[g.type + 1]) or tostring(g[v:lower()])))
+						info = info .. string.format("<N>%s : <V>%s\n",v,(v == "ID" and i or v == "Type" and (({[0] = "Unknown","Wood","Ice","Trampoline","Lava","Chocolate","Earth","Grass","Sand","Cloud","Water","Stone","Snow","Rectangle","Circle","Spiderweb"})[g.type + 1]) or tostring(g[string.lower(v)])))
 					end
 
 					local mapW = tonumber(mode.bootcampP.mapData.width)
@@ -4946,9 +4946,9 @@ mode.bootcampP = {
 					elseif p[2] == "add" then
 						mode.bootcampP.maps[#mode.bootcampP.maps + 1] = p[3]
 						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuemapadded"),n,string.find(p[3],"@") and p[3] or "@"..p[3]))
-					elseif p[2] and p[2]:sub(1,1) == "p" then
+					elseif p[2] and string.sub(p[2],1,1) == "p" then
 						if p[2] == "p3" or p[2] == "p13" or p[2] == "p23" then
-							mode.bootcampP.maps[#mode.bootcampP.maps + 1] = "#" .. p[2]:sub(2)
+							mode.bootcampP.maps[#mode.bootcampP.maps + 1] = "#" .. string.sub(p[2],2)
 							tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queueperm"),n,string.upper(p[2])))
 						end
 					else
@@ -5020,6 +5020,7 @@ events.eventLoop = function(currentTime,leftTime)
 	_G.leftTime = normalizeTime(leftTime / 1e3)
 end
 events.eventChatCommand = function(n,c)
+	disableChatCommand(c)
 	if not system.isRoom then
 		if os.time() > system.modeChanged and os.time() > system.newGameTimer then
 			local newMode = system.getGameMode(c)
