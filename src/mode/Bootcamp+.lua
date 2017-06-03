@@ -203,7 +203,7 @@ mode.bootcampP = {
 					local info = ""
 
 					for k,v in next,properties do
-						info = info .. string.format("<N>%s : <V>%s\n",v,(v == "ID" and i or v == "Type" and (({[0] = "Unknown","Wood","Ice","Trampoline","Lava","Chocolate","Earth","Grass","Sand","Cloud","Water","Stone","Snow","Rectangle","Circle","Spiderweb"})[g.type + 1]) or tostring(g[v:lower()])))
+						info = info .. string.format("<N>%s : <V>%s\n",v,(v == "ID" and i or v == "Type" and (({[0] = "Unknown","Wood","Ice","Trampoline","Lava","Chocolate","Earth","Grass","Sand","Cloud","Water","Stone","Snow","Rectangle","Circle","Spiderweb"})[g.type + 1]) or tostring(g[string.lower(v)])))
 					end
 
 					local mapW = tonumber(mode.bootcampP.mapData.width)
@@ -299,9 +299,9 @@ mode.bootcampP = {
 					elseif p[2] == "add" then
 						mode.bootcampP.maps[#mode.bootcampP.maps + 1] = p[3]
 						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuemapadded"),n,string.find(p[3],"@") and p[3] or "@"..p[3]))
-					elseif p[2] and p[2]:sub(1,1) == "p" then
+					elseif p[2] and string.sub(p[2],1,1) == "p" then
 						if p[2] == "p3" or p[2] == "p13" or p[2] == "p23" then
-							mode.bootcampP.maps[#mode.bootcampP.maps + 1] = "#" .. p[2]:sub(2)
+							mode.bootcampP.maps[#mode.bootcampP.maps + 1] = "#" .. string.sub(p[2],2)
 							tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queueperm"),n,string.upper(p[2])))
 						end
 					else
