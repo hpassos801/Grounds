@@ -69,6 +69,8 @@ mode.bootcampP = {
 	mapData = {},
 	standardTime = 6,
 	checkpoint = false,
+	-- Settings
+	respawnCheese = false,
 	-- Leaderboard
 	rank = function(players,fromValue,showPos,showPoints,pointsName,lim)
 		local p,rank = {},""
@@ -86,9 +88,14 @@ mode.bootcampP = {
 	end,
 	-- Init
 	init = function()
+		-- Translations
 		mode.bootcampP.translations.pt = mode.bootcampP.translations.br
 		mode.bootcampP.langue = mode.bootcampP.translations[tfm.get.room.community] and tfm.get.room.community or "en"
-
+		
+		-- Settings
+		mode.bootcampP.respawnCheese = system.miscAttrib == 1
+		
+		-- Init
 		for _,f in next,{"AutoShaman","AutoScore","AutoTimeLeft","AutoNewGame","PhysicalConsumables","AfkDeath"} do
 			tfm.exec["disable"..f]()
 		end
@@ -164,14 +171,21 @@ mode.bootcampP = {
 				cheese = false,
 			}
 		end
+		
 		system.bindMouse(n,true)
 		for i = 1,2 do
 			system.bindKeyboard(n,16,i==1,true)
 			system.bindKeyboard(n,string.byte("K"),i==1,true)
 		end
+		
 		system.bindKeyboard(n,string.byte("E"),true,true)
 		system.bindKeyboard(n,46,true,true) -- Delete key
 		tfm.exec.chatMessage("<T>" .. system.getTranslation("welcome") .. "\n\t<CEP>/w Mquk #bootcamp+ @mapCode",n)
+		
+		local id = tfm.exec.addImage(".png","&0",400,200,n)
+		system.newTimer(function()
+			tfm.exec.removeImage(id)
+		end,5000,false)
 	end,
 	-- Mouse
 	eventMouse = function(n,x,y)
@@ -255,6 +269,12 @@ mode.bootcampP = {
 						for k,v in next,mode.bootcampP.info do
 							v.checkpoint = {false,0,0}
 						end
+						if system.miscAttrib ~= 1 then
+							mode.bootcampP.respawnCheese = false
+						end
+					end
+					if p[2] and p[2] == "cheese" then
+						mode.bootcampP.respawnCheese = not mode.bootcampP.respawnCheese
 					end
 					tfm.exec.chatMessage("<T>Checkpoint " .. system.getTranslation(mode.bootcampP.checkpoint and "enabled" or "disabled"))
 				elseif p[1] == "queue" then
