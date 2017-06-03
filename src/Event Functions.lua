@@ -4,6 +4,7 @@ events.eventLoop = function(currentTime,leftTime)
 	_G.leftTime = normalizeTime(leftTime / 1e3)
 end
 events.eventChatCommand = function(n,c)
+	disableChatCommand(c)
 	if not system.isRoom then
 		if os.time() > system.modeChanged and os.time() > system.newGameTimer then
 			local newMode = system.getGameMode(c)
