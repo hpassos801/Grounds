@@ -86,7 +86,7 @@ mode.bootcampP = {
 	end,
 	-- Init
 	init = function()
-		mode.bootcampP.translations.pt = mode.bootcampP..br
+		mode.bootcampP.translations.pt = mode.bootcampP.translations.br
 		mode.bootcampP.langue = mode.bootcampP.translations[tfm.get.room.community] and tfm.get.room.community or "en"
 
 		for _,f in next,{"AutoShaman","AutoScore","AutoTimeLeft","AutoNewGame","PhysicalConsumables","AfkDeath"} do
@@ -263,8 +263,8 @@ mode.bootcampP = {
 						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuecleared"),n))
 					elseif p[2] == "add" then
 						mode.bootcampP.maps[#mode.bootcampP.maps + 1] = p[3]
-						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuemapadded",string.find(p[3],"@") and p[3] or "@"..p[3]),n,))
-					elseif p[2]:sub(1,1) == "p" then
+						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuemapadded"),n,string.find(p[3],"@") and p[3] or "@"..p[3]))
+					elseif p[2] and p[2]:sub(1,1) == "p" then
 						if p[2] == "p3" or p[2] == "p13" or p[2] == "p23" then
 							mode.bootcampP.maps[#mode.bootcampP.maps + 1] = "#" .. p[2]:sub(2)
 							tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queueperm"),n,string.upper(p[2])))
