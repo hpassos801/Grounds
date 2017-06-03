@@ -4420,6 +4420,19 @@ mode.signal = {
 
 			close = "Fechar",
 		},
+		pl = {
+			welcome = "<S>Witaj w <PS>#Signal<S>! Patrz na tabliczke i wejdź do norki! Użyj komendy !help, aby przeczytać więcej informacji.\n\tZgłoś wszystkie błędy jakie znajdziesz do Bolodefchoco",
+			
+			info = {
+				[1] = {"Biegnij","Biegnij jak najszybciej do norki. Nie zatrzymuj się!"},
+				[2] = {"Uważaj","Uważaj! Możesz zginąć za kilka sekund!"},
+				[3] = {"Stój","Stój albo zgiń!"},
+			},
+			skip = "<PS>[•] <S>Niemożliwa mapa? Wpisz komendę !skip",
+			skipped = "Twój głos na ominięcie mapy został policzony.",
+			
+			close = "Zamknij",
+		},
 	},
 	langue = "en",
 	-- Data
@@ -4644,6 +4657,10 @@ mode.bootcampP = {
 			settime = "The time has been set to %s minutes!",
 			setstandtime = "The standard time of all the rounds has been set to %s minutes!",
 			enabled = "enabled! Press <B>E</B> to put a checkpoint and <B>Shift+E</B> to remove it.",
+			queuecleared = "%s just cleared the map queue",
+			queuemapadded = "%s just added the map %s to the map queue",
+			queueperm = "%s just added the category %s to the map queue",
+			queuereset = "%s just reseted the queue to the main maps",
 			
 			-- Simple words
 			disabled = "disabled!",
@@ -4658,6 +4675,10 @@ mode.bootcampP = {
 			settime = "O tempo foi definido para %s minutos!",
 			setstandtime = "O tempo padrão para todas as partidas foram definidas para %s minutos!",
 			enabled = "ativado! Pressione <B>E</B> para marcar um checkpoint e <B>Shift+E</B> para remove-lo.",
+			queuecleared = "%s acabou de limpar a rotação de mapas",
+			queuemapadded = "%s acabou de adicionar o mapa %s na rotação de mapas",
+			queueperm = "%s acabou de adicionar a categoria %s na rotação de mapas",
+			queuereset = "%s acabou de resetar a rotação de mapas para os mapas principais",
 			
 			disabled = "desativado!",
 		},
@@ -4671,6 +4692,10 @@ mode.bootcampP = {
 			settime = "Czas został ustawiony na %s minut!",
 			setstandtime = "Standardowy czas dla wszystkich map został ustawiony na %s minut!",
 			enabled = "włączony! Kliknij <B>E</B>, aby ustawić checkpoint i <B>Shift+E</B>, aby go usunąć.",
+			queuecleared = "%s just cleared the map queue",
+			queuemapadded = "%s just added the map %s to the map queue",
+			queueperm = "%s just added the category %s to the map queue",
+			queuereset = "%s just reseted the queue to the main maps",
 			
 			disabled = "wyłączony!",
 		},
@@ -4688,6 +4713,8 @@ mode.bootcampP = {
 	mapData = {},
 	standardTime = 6,
 	checkpoint = false,
+	-- Settings
+	respawnCheese = false,
 	-- Leaderboard
 	rank = function(players,fromValue,showPos,showPoints,pointsName,lim)
 		local p,rank = {},""
@@ -4705,16 +4732,21 @@ mode.bootcampP = {
 	end,
 	-- Init
 	init = function()
+		-- Translations
 		mode.bootcampP.translations.pt = mode.bootcampP.translations.br
 		mode.bootcampP.langue = mode.bootcampP.translations[tfm.get.room.community] and tfm.get.room.community or "en"
-
+		
+		-- Settings
+		mode.bootcampP.respawnCheese = system.miscAttrib == 1
+		
+		-- Init
 		for _,f in next,{"AutoShaman","AutoScore","AutoTimeLeft","AutoNewGame","PhysicalConsumables","AfkDeath"} do
 			tfm.exec["disable"..f]()
 		end
 		tfm.exec.setAutoMapFlipMode(false)
 
 		mode.bootcampP.map()
-		tfm.exec.newGame(mode.bootcampP.maps[math.random(#mode.bootcampP.maps)])
+		tfm.exec.newGame(table.random(mode.bootcampP.maps))
 	end,
 	-- New Game
 	eventNewGame = function()
@@ -4783,14 +4815,21 @@ mode.bootcampP = {
 				cheese = false,
 			}
 		end
+		
 		system.bindMouse(n,true)
 		for i = 1,2 do
 			system.bindKeyboard(n,16,i==1,true)
 			system.bindKeyboard(n,string.byte("K"),i==1,true)
 		end
+		
 		system.bindKeyboard(n,string.byte("E"),true,true)
 		system.bindKeyboard(n,46,true,true) -- Delete key
-		tfm.exec.chatMessage("<T>"..mode.bootcampP.translations[mode.bootcampP.langue].welcome .. "\n\t<CEP>/w Mquk #bootcamp+ @mapCode",n)
+		tfm.exec.chatMessage("<T>" .. system.getTranslation("welcome") .. "\n\t<CEP>/w Mquk #bootcamp+ @mapCode",n)
+		
+		local id = tfm.exec.addImage("15c6ee6324d.png","&0",400,200,n)
+		system.newTimer(function()
+			tfm.exec.removeImage(id)
+		end,5000,false)
 	end,
 	-- Mouse
 	eventMouse = function(n,x,y)
@@ -4846,47 +4885,72 @@ mode.bootcampP = {
 	eventChatCommand = function(n,c)
 		local p = string.split(c,"[^%s]+",string.lower)
 		if p[1] == "info" then
-			tfm.exec.chatMessage("<T>" .. mode.bootcampP.translations[mode.bootcampP.langue].info,n)
+			tfm.exec.chatMessage("<T>" .. system.getTranslation("info"),n)
 		else
 			if system.roomAdmins[n] then
-				if p[1] == "next" then
-					tfm.exec.newGame(mode.bootcampP.maps[math.random(#mode.bootcampP.maps)])
-					tfm.exec.chatMessage("<T>• "..mode.bootcampP.translations[mode.bootcampP.langue].skip:format(n))
-				elseif p[1] == "again" then
+				if p[1] == "next" and os.time() > system.newGameTimer then
+					tfm.exec.newGame(table.random(mode.bootcampP.maps))
+					tfm.exec.chatMessage("<T>• " .. string.format(system.getTranslation("skip"),n))
+				elseif p[1] == "again" and os.time() > system.newGameTimer then
 					tfm.exec.newGame(tfm.get.room.currentMap)
-					tfm.exec.chatMessage("<T>• "..mode.bootcampP.translations[mode.bootcampP.langue].restart:format(n))
-				elseif p[1] == "np" or p[1] == "map" then
+					tfm.exec.chatMessage("<T>• " .. string.format(system.getTranslation("restart"),n))
+				elseif (p[1] == "np" or p[1] == "map") and os.time() > system.newGameTimer then
 					tfm.exec.newGame(p[2])
-					tfm.exec.chatMessage("<T>• "..mode.bootcampP.translations[mode.bootcampP.langue].loadmap:format(n,p[2]:find("@") and p[2] or "@"..p[2]))
+					tfm.exec.chatMessage("<T>• " .. string.format(system.getTranslation("loadmap"),n,string.find(p[2],"@") and p[2] or "@"..p[2]))
 				elseif p[1] == "time" then
 					tfm.exec.setGameTime(p[2] * 60)
-					tfm.exec.chatMessage(mode.bootcampP.translations[mode.bootcampP.langue].settime:format(p[2]))
+					tfm.exec.chatMessage(string.format(system.getTranslation("settime"),p[2]))
 				elseif p[1] == "standtime" then
 					p[2] = p[2] and tonumber(p[2]) or 6
 					if p[2] > 0 and p[2] < 10 then
 						mode.bootcampP.standardTime = p[2]
-						tfm.exec.chatMessage(mode.bootcampP.translations[mode.bootcampP.langue].setstandtime:format(p[2]))
+						tfm.exec.chatMessage(string.format(system.getTranslation("setstandtime",p[2])))
 					end
 				elseif p[1] == "checkpoint" then
-					mode.bootcampP.checkpoint = not mode.bootcampP.checkpoint
-					if not mode.bootcampP.checkpoint then
-						ui.removeTextArea(1,nil)
-						for k,v in next,mode.bootcampP.info do
-							v.checkpoint = {false,0,0}
+					local attribute = false
+					if p[2] then
+						attribute = true
+						if p[2] == "not" and p[3] and p[3] == "cheese" then
+							mode.bootcampP.respawnCheese = false
+						elseif p[2] == "cheese" then
+							mode.bootcampP.respawnCheese = true
+						else
+							attribute = false
 						end
 					end
-					tfm.exec.chatMessage("<T>Checkpoint " .. (mode.bootcampP.checkpoint and mode.bootcampP.translations[mode.bootcampP.langue].enabled or mode.bootcampP.translations[mode.bootcampP.langue].disabled))
+					
+					if not (mode.bootcampP.checkpoint and attribute) then
+						mode.bootcampP.checkpoint = not mode.bootcampP.checkpoint
+						tfm.exec.chatMessage("<T>Checkpoint " .. system.getTranslation(mode.bootcampP.checkpoint and "enabled" or "disabled"))
+					
+						if not mode.bootcampP.checkpoint then
+							ui.removeTextArea(1,nil)
+							for k,v in next,mode.bootcampP.info do
+								v.checkpoint = {false,0,0}
+							end
+							if system.miscAttrib ~= 1 then
+								mode.bootcampP.respawnCheese = false
+							end
+							for k,v in next,mode.bootcampP.info do
+								v.cheese = false
+							end
+						end
+					end
 				elseif p[1] == "queue" then
 					if p[2] == "clear" then
 						mode.bootcampP.maps = {}
+						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuecleared"),n))
 					elseif p[2] == "add" then
 						mode.bootcampP.maps[#mode.bootcampP.maps + 1] = p[3]
-					elseif p[2]:sub(1,1) == "p" then
+						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuemapadded"),n,string.find(p[3],"@") and p[3] or "@"..p[3]))
+					elseif p[2] and p[2]:sub(1,1) == "p" then
 						if p[2] == "p3" or p[2] == "p13" or p[2] == "p23" then
 							mode.bootcampP.maps[#mode.bootcampP.maps + 1] = "#" .. p[2]:sub(2)
+							tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queueperm"),n,string.upper(p[2])))
 						end
 					else
 						mode.bootcampP.map()
+						tfm.exec.chatMessage("• " .. string.format(system.getTranslation("queuereset"),n))
 					end
 				end
 			end
@@ -4895,7 +4959,7 @@ mode.bootcampP = {
 	-- Loop
 	eventLoop = function()
 		if _G.leftTime < 1 then
-			tfm.exec.newGame(mode.bootcampP.maps[math.random(#mode.bootcampP.maps)])
+			tfm.exec.newGame(table.random(mode.bootcampP.maps))
 		end
 	end,
 	-- Player Died
@@ -4904,7 +4968,7 @@ mode.bootcampP = {
 		if mode.bootcampP.checkpoint and mode.bootcampP.info[n].checkpoint[1] then
 			tfm.exec.movePlayer(n,mode.bootcampP.info[n].checkpoint[2],mode.bootcampP.info[n].checkpoint[3])
 		end
-		if mode.bootcampP.info[n].cheese and system.miscAttrib == 1 then
+		if mode.bootcampP.checkpoint and mode.bootcampP.info[n].cheese and mode.bootcampP.respawnCheese then
 			tfm.exec.giveCheese(n)
 		end
 	end,
@@ -4920,7 +4984,9 @@ mode.bootcampP = {
 	end,
 	-- Got Cheese
 	eventPlayerGetCheese = function(n)
-		mode.bootcampP.info[n].cheese = true
+		if mode.bootcampP.checkpoint and mode.bootcampP.respawnCheese then
+			mode.bootcampP.info[n].cheese = true
+		end
 	end,
 }
 
