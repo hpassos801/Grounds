@@ -76,3 +76,7 @@ combiner.run = function()
 end
 
 combiner.run()
+
+os.execute("cls")
+io.write("Executed! (:")
+os.execute("pause >nul")
