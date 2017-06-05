@@ -96,9 +96,9 @@ mode.cannonup = {
 			local ang = math.deg(math.atan2(coordinates[2][2] - coordinates[2][1],coordinates[1][2] - coordinates[1][1]))
 			tfm.exec.addShamanObject(0,coordinates[1][2] - (coordinates[3][1] and 0 or 10),coordinates[2][2] - (coordinates[3][2] and 0 or 10),ang + 90)
 			
-			system.newTimer(function()
+			--system.newTimer(function()
 				mode.cannonup.toDespawn[#mode.cannonup.toDespawn + 1] = {tfm.exec.addShamanObject(mode.cannonup.getCannon(),coordinates[1][2],coordinates[2][2],ang - 90,mode.cannonup.cannon.speed),os.time() + 5000}
-			end,math.isNegative((mode.cannonup.cannon.speed - 1) * 500,0),false)
+			--end,math.isNegative((mode.cannonup.cannon.speed - 1) * 500,0),false)
 		end
 	end,
 	-- Profile
