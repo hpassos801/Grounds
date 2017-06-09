@@ -282,7 +282,7 @@ mode.bootcampP = {
 						if not mode.bootcampP.checkpoint then
 							ui.removeTextArea(1,nil)
 							for k,v in next,mode.bootcampP.info do
-								v.checkpoint = {false,0,0}
+								v.checkpoint = {false,0,0,v.checkpoint[4]}
 							end
 							if system.miscAttrib ~= 1 then
 								mode.bootcampP.respawnCheese = false
