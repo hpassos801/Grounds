@@ -49,5 +49,16 @@ system.setRoom = function()
 				end
 			end
 		end
+		
+		local officialModes = {
+			{"vanilla","<VP>Enjoy your vanilla (: .. okno"},
+			{"survivor","<R>Aw, you cannot play survivor on #grounds"},
+			{"racing","<CH>Uh, racing? Good luck!"},
+			{"music","<BV>Music? Nice choice! Why don't you try a rock'n'roll?"},
+			{"bootcamp","<PT>Bootcamp? Ok. This is unfair and your data won't be saved out of the room."},
+			{"defilante","<R>Aw, you cannot play defilante on #grounds"},
+			{"village","<R>You cannot play village on #grounds. Please, change your room."},
+		}
+		
 	end
 end
