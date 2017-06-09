@@ -1,5 +1,5 @@
 local module = {
-	_VERSION = "3.1",
+	_VERSION = "3.2",
 	_NAME = "grounds",
 	_STATUS = "semi-official",
 	_AUTHOR = "Bolodefchoco",
