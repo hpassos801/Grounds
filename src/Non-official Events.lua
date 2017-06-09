@@ -16,3 +16,5 @@ eventModeChanged = function()
 		textarea = {}
 	}
 end
+
+system.officialModeMessage = ""
