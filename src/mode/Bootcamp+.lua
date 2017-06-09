@@ -111,7 +111,7 @@ mode.bootcampP = {
 		mode.bootcampP.mapData = {}
 		for k,v in next,mode.bootcampP.info do
 			v.cheese = false
-			v.checkpoint = {false,0,0}
+			v.checkpoint = {false,0,0,false}
 			ui.removeTextArea(1,n)
 		end
 		
@@ -167,7 +167,7 @@ mode.bootcampP = {
 		if not mode.bootcampP.info[n] then
 			mode.bootcampP.info[n] = {
 				shift = false,
-				checkpoint = {false,0,0},
+				checkpoint = {false,0,0,false},
 				cheese = false,
 			}
 		end
@@ -221,10 +221,10 @@ mode.bootcampP = {
 			mode.bootcampP.info[n].shift = d
 		elseif k == string.byte("E") and mode.bootcampP.checkpoint then
 			if mode.bootcampP.info[n].shift then
-				mode.bootcampP.info[n].checkpoint = {false,0,0}
+				mode.bootcampP.info[n].checkpoint = {false,0,0,mode.bootcampP.info[n].checkpoint[4]}
 				ui.removeTextArea(1,n)
 			else
-				mode.bootcampP.info[n].checkpoint = {true,x,y}
+				mode.bootcampP.info[n].checkpoint = {true,x,y,true}
 				ui.addTextArea(1,"",n,x-5,y-5,10,10,0x56A75A,0x56A75A,.5,true)
 			end
 		elseif k == string.byte("K") then
@@ -331,12 +331,12 @@ mode.bootcampP = {
 	-- Victory
 	eventPlayerWon = function(n,t,time)
 		mode.bootcampP.info[n].cheese = false
-		mode.bootcampP.info[n].checkpoint = {false,0,0}
+		mode.bootcampP.info[n].checkpoint = {false,0,0,mode.bootcampP.info[n].checkpoint[4]}
 		ui.removeTextArea(1,n)
 
 		mode.bootcampP.eventPlayerDied(n)
 		tfm.exec.setPlayerScore(n,1,true)
-		tfm.exec.chatMessage(string.format("<ROSE>%s (%ss <PT>(%scheckpoint)</PT>)",n,time/100,mode.bootcampP.checkpoint and "" or "no "),n)
+		tfm.exec.chatMessage(string.format("<ROSE>%s (%ss <PT>(%scheckpoint)</PT>)",n,time/100,mode.bootcampP.info[n].checkpoint[4] and "" or "no "),n)
 	end,
 	-- Got Cheese
 	eventPlayerGetCheese = function(n)
