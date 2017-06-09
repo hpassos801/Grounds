@@ -1,6 +1,6 @@
 # Grounds - # Transformice Lua API
 This repository contains the source code for #Grounds.<br>
-This module contains functions that are only available to Luacrew members. This means that you can't run it in your tribe house.
+This module contains functions that are only available to Luacrew members. This means that the code in a tribe house won't work perfectly.
 
 ## What is Grounds?
 Your aim in this minigame is to collect the cheese the faster you can, using the effects each ground offers.<br>
