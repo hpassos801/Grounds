@@ -30,6 +30,7 @@ fileTree = {
 	"src:mode:Xmas",
 	"src:mode:Signal",
 	"src:mode:Bootcamp+",
+	"src:mode:Map",
 	"src:Non-official Events",
 	"src:Event Functions",
 	"src:Room Settings",
