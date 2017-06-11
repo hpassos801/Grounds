@@ -148,7 +148,7 @@ mode.map = {
 		local p = string.split(c,"[^%s]+",string.lower)
 		if system.isPlayer(n) and p[1] == "maptest" and p[2] then
 			p[2] = tonumber(string.sub(p[2],(string.find(p[2],"@") and 2 or 1),8))
-			if p[2] and #tostring(p[2]) > 3 then
+			if p[2] and #tostring(p[2]) > 5 then
 				local pos = #mode.map.queue + 1
 				local category = (p[3] and tonumber(string.sub(p[3],(string.find(p[3],"p") and 2 or 1))) or 0)
 				if table.find({0,1,3,4,5,6,7,8,9,17,18},category) then
