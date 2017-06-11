@@ -179,7 +179,7 @@ mode.map = {
 				ui.addTextArea(2,"\t" .. xml,n,5,380,790,20,1,1,.7,true)
 			end
 		elseif n == mode.map.mapInfo[2] and p[1] == "time" then
-			tfm.exec.setGameTime(tonumber(p[2]) or 60,false)
+			tfm.exec.setGameTime(tonumber(string.sub(p[2],1,3)) or 60,false)
 		elseif n == mode.map.mapInfo[2] and p[1] == "skip" then
 			if os.time() > system.newGameTimer and #mode.map.queue > 0 then
 				mode.map.skip = true
