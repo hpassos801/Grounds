@@ -13,6 +13,9 @@ mode.chat = {
 			-- Cats
 			shaman = "shaman",
 			newGame = "Auto New Game",
+			
+			-- Misc
+			title = "%s has just unlocked the «%s» title.\n<ROSE>Type /title to choose a title",
 		},
 		br = {
 			welcome = "<J>Bem-vindo ao #chat. Aproveite enquanto você está mutado ?! Reporte qualquer problema para Bolodefchoco.",
@@ -23,6 +26,8 @@ mode.chat = {
 			
 			shaman = "shaman",
 			newGame = "Novo Jogo Automático",
+			
+			title = "%s Desbloqueou o título «%s»\n<ROSE>Digite /title para escolher um título.",
 		},
 		ar = {
 			welcome = "<J>مرحبًا بك في #chat. استمتع بينما أنت مكتوم ?! بلغ عن أي مشكلة إلى Bolodefchoco.",
@@ -33,6 +38,8 @@ mode.chat = {
 			
 			shaman = "الشامان",
 			newGame = "جولة جديدة تلقائية",
+			
+			title = "%s has just unlocked the «%s» title.\n<ROSE>Type /title to choose a title",
 		},
 	},
 	langue = "en",
@@ -185,6 +192,8 @@ mode.chat = {
 			tfm.exec.disableAutoTimeLeft(mode.chat.autoNeWGame)
 		elseif p[1] == "adm" and system.roomAdmins[n] then
 			system.roomAdmins[string.nick(p[2])] = true
+		elseif p[1] == "unlock" then
+			tfm.exec.chatMessage("<J>" .. string.format(system.getTranslation("title"),n,p[2]),n)
 		end
 	end,	
 }
