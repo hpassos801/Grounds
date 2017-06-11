@@ -40,6 +40,7 @@ mode.map = {
 	category = -1,
 	mapInfo = {},
 	canInfo = false,
+	totalPlayers = 0,
 	-- Next Map
 	nextMap = function()
 		if os.time() > system.newGameTimer and #mode.map.queue > 0 then
@@ -72,7 +73,7 @@ mode.map = {
 		if mode.map.category >= 0 then
 			if table.find({0,1,4,5,6,8,9},mode.map.category) then
 				tfm.exec.setGameTime(135)
-				if mode.map.category == 8 then
+				if mode.map.category == 8 and mode.map.totalPlayers > 1 then
 					local newShaman
 					repeat
 						newShaman = table.random(system.players(true))
@@ -108,6 +109,9 @@ mode.map = {
 
 		tfm.exec.disableAutoNewGame()
 		tfm.exec.setGameTime(10,false)
+		
+		local alive
+		alive,mode.map.totalPlayers = system.players()
 	end,
 	-- New Player
 	eventNewPlayer = function(n)
@@ -144,7 +148,7 @@ mode.map = {
 		local p = string.split(c,"[^%s]+",string.lower)
 		if system.isPlayer(n) and p[1] == "maptest" and p[2] then
 			p[2] = tonumber(string.sub(p[2],(string.find(p[2],"@") and 2 or 1),8))
-			if p[2] then
+			if p[2] and #tostring(p[2]) > 3 then
 				local pos = #mode.map.queue + 1
 				local category = (p[3] and tonumber(string.sub(p[3],(string.find(p[3],"p") and 2 or 1))) or 0)
 				if table.find({0,1,3,4,5,6,7,8,9,17,18},category) then
@@ -159,9 +163,9 @@ mode.map = {
 				tfm.exec.chatMessage("<J><B>" .. string.format(system.getTranslation("savenewmap"),string.format("@%s (P%s)",p[2],category),"#" .. pos) .. "</B>. <ROSE>" .. string.format("(%s)",string.format(system.getTranslation("newmaptime"),pos * 2.5)),n)
 			end
 		elseif mode.map.mapInfo[1] and p[1] == "mapinfo" then
-			local xml = tfm.get.room.xmlMapInfo.xml
-			xml = string.match(xml,"<P (.-)/>")
-			if xml then
+			local xml = tfm.get.room.xmlMapInfo
+			xml = xml and string.match(xml.xml,"<P (.-)/>") or "?"
+			if #xml > 0 then
 				ui.addTextArea(2,"\t" .. xml,n,5,380,790,20,1,1,.7,true)
 			end
 		end
@@ -198,9 +202,9 @@ mode.map = {
 	end,
 	-- Loop
 	eventLoop = function()
-		local total,alive = 100,100
+		local alive = 100
 		if _G.currentTime % 5 == 0 then
-			total,alive = system.players()
+			alive,mode.map.totalPlayers = system.players()
 		end
 		if _G.leftTime < 1 or alive < 1 then
 			if mode.map.mapInfo[1] and mode.map.canInfo then
