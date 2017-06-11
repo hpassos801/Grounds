@@ -188,7 +188,7 @@ mode.map = {
 			local attributes = string.match(xml,"<P (.-)/>") or "?"
 			
 			local totalGrounds = (function()
-				local g = string.match("<S>(.-)</S>") or "?"
+				local g = string.match(xml,"<S>(.-)</S>") or "?"
 
 				local total = 0
 				string.gsub(g,"<S ",function()
@@ -198,7 +198,7 @@ mode.map = {
 				return total
 			end)()
 			
-			local info = {attributes,system.getTranslation("grounds") .. " " .. totalGrounds,system.getTranslation("author") .. " " .. (tfm.get.room.xmlMapInfo.author or "?"),system.getTranslation("status") .. " " .. ("P" .. tfm.get.room.xmlMapInfo.permCode or "?")}
+			local info = {attributes,system.getTranslation("grounds") .. ": " .. totalGrounds,system.getTranslation("author") .. ": " .. (tfm.get.room.xmlMapInfo.author or "?"),system.getTranslation("status") .. ": " .. ("P" .. tfm.get.room.xmlMapInfo.permCode or "?")}
 			ui.addTextArea(2,"\t<J>" .. table.concat(info,"   <G>|<J>   "),n,5,380,790,20,1,1,.7,true)
 		elseif n == mode.map.mapInfo[2] and p[1] == "time" then
 			tfm.exec.setGameTime(tonumber(string.sub(p[2],1,3)) or 60,false)
