@@ -232,4 +232,8 @@ mode.map = {
 			tfm.exec.respawnPlayer(n)
 		end
 	end,
+	-- Player Won
+	eventPlayerWon = function(n)
+		mode.map.eventPlayerDied(n)
+	end,
 }
