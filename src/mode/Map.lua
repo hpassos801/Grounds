@@ -41,6 +41,7 @@ mode.map = {
 	mapInfo = {},
 	canInfo = false,
 	totalPlayers = 0,
+	skip = false,
 	-- Next Map
 	nextMap = function()
 		if os.time() > system.newGameTimer and #mode.map.queue > 0 then
@@ -138,6 +139,7 @@ mode.map = {
 	-- New Game
 	eventNewGame = function()
 		ui.removeTextArea(2,nil)
+		mode.map.skip = false
 		if mode.map.mapInfo[1] then
 			mode.map.canInfo = true
 			mode.map.after()
@@ -175,6 +177,12 @@ mode.map = {
 			xml = xml and string.match(xml.xml,"<P (.-)/>") or "?"
 			if #xml > 0 then
 				ui.addTextArea(2,"\t" .. xml,n,5,380,790,20,1,1,.7,true)
+			end
+		elseif n == mode.map.mapInfo[2] and p[1] == "time" then
+			tfm.exec.setGameTime(tonumber(p[2]) or 60,false)
+		elseif n == mode.map.mapInfo[2] and p[1] == "skip" then
+			if os.time() > system.newGameTimer and #mode.map.queue > 0 then
+				mode.map.skip = true
 			end
 		end
 	end,
@@ -214,7 +222,7 @@ mode.map = {
 		if _G.currentTime % 5 == 0 then
 			alive,mode.map.totalPlayers = system.players()
 		end
-		if _G.leftTime < 1 or alive < 1 then
+		if _G.leftTime < 1 or alive < 1 or mode.map.skip then
 			if mode.map.mapInfo[1] and mode.map.canInfo then
 				mode.map.canInfo = false
 				
