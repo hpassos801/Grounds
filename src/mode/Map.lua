@@ -16,6 +16,11 @@ mode.map = {
 
 			-- Security
 			cantvote = "You cannot vote.",
+			
+			-- Simple words
+			grounds = "Grounds",
+			status = "Status",
+			author = "Author",
 		},
 		br = {
 			welcome = "Bem-vindo ao #map! Aqui você pode testar seus mapas em diferentes categorias e checar sua aprovação na comunidade!\n\tAdicione um mapa na lista de espera com o comando <B>!maptest @Código PCategoria</B> e cheque as informações do mapa usando o comando <B>!mapinfo</B>.\n\n\tReporte qualquer problema para Bolodefchoco.",
@@ -28,6 +33,10 @@ mode.map = {
 			mapby = "Mapa %s carregado por %s como %s.",
 
 			cantvote = "Vote não pode votar.",
+			
+			grounds = "Pisos",
+			status = "Estado",
+			author = "Autor",
 		}
 	},
 	langue = "en",
@@ -174,10 +183,23 @@ mode.map = {
 			end
 		elseif mode.map.mapInfo[1] and p[1] == "mapinfo" then
 			local xml = tfm.get.room.xmlMapInfo
-			xml = xml and string.match(xml.xml,"<P (.-)/>") or "?"
-			if #xml > 0 then
-				ui.addTextArea(2,"\t" .. xml,n,5,380,790,20,1,1,.7,true)
-			end
+			xml = xml and xml.xml or "?"
+			
+			local attributes = string.match(xml,"<P (.-)/>") or "?"
+			
+			local totalGrounds = (function()
+				local g = string.match("<S>(.-)</S>") or "?"
+
+				local total = 0
+				string.gsub(g,"<S ",function()
+					total = total + 1		
+				end)
+
+				return total
+			end)()
+			
+			local info = {attributes,system.getTranslation("grounds") .. " " .. totalGrounds,system.getTranslation("author") .. " " .. (tfm.get.room.xmlMapInfo.author or "?"),system.getTranslation("status") .. " " .. ("P" .. tfm.get.room.xmlMapInfo.permCode or "?")}
+			ui.addTextArea(2,"\t<J>" .. table.concat(info,"   <G>|<J>   "),n,5,380,790,20,1,1,.7,true)
 		elseif n == mode.map.mapInfo[2] and p[1] == "time" then
 			tfm.exec.setGameTime(tonumber(string.sub(p[2],1,3)) or 60,false)
 		elseif n == mode.map.mapInfo[2] and p[1] == "skip" then
