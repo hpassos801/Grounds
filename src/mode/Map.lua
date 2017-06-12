@@ -51,6 +51,7 @@ mode.map = {
 	canInfo = false,
 	totalPlayers = 0,
 	skip = false,
+	images = {},
 	-- Next Map
 	nextMap = function()
 		if os.time() > system.newGameTimer and #mode.map.queue > 0 then
@@ -151,12 +152,35 @@ mode.map = {
 		mode.map.skip = false
 		if mode.map.mapInfo[1] then
 			mode.map.canInfo = true
+			
 			mode.map.after()
 			table.remove(mode.map.queue,1)
 
 			for k,v in next,mode.map.info do
 				v.hasVoted = false
 			end
+			
+			for k,v in next,mode.map.images do
+				tfm.exec.removeImage(v)
+			end
+			
+			xml.attribFunc(tfm.get.room.xmlMapInfo.xml,{
+				[1] = {
+					attribute = "img",
+					func = function(value)
+						local images = string.split(value,"[^;]+")
+						for k,v in next,images do
+							local info = string.split(v,"[^,]+")
+							
+							-- "img.png,0/1 (foreground),x or 0,y or 0"
+							info[2] = tonumber(info[2])
+							if table.find({0,1},info[2]) then
+								mode.map.images[#mode.map.images + 1] = tfm.exec.addImage(info[1],(info[2] == 0 and "?" or info[2] == 1 and "&") .. k,tonumber(info[3]) or 0,tonumber(info[4]) or 0))
+							end
+						end
+					end
+				}
+			})
 
 			tfm.exec.chatMessage("<J>" .. string.format(system.getTranslation("mapby"),"@" .. mode.map.mapInfo[1],mode.map.mapInfo[2],"P" .. mode.map.category))
 			tfm.exec.chatMessage("<J>" .. system.getTranslation("dovote"))
