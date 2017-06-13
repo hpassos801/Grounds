@@ -123,4 +123,16 @@ mode.godmode = {
 	eventPlayerDied = function(n)
 		if tfm.get.room.playerList[n].isShaman then
 			tfm.exec.setGameTime(10,false)
-	
+			mode.godmode.info[n].deathSha = mode.godmode.info[n].deathSha + 1
+			tfm.exec.chatMessage("<R>" .. system.getTranslation("fail"),n)
+		else
+			mode.godmode.deadMice = mode.godmode.deadMice + 1
+		end
+	end,
+	-- Player Won
+	eventPlayerWon = function(n)
+		if not tfm.get.room.playerList[n].isShaman then
+			mode.godmode.savedMice = mode.godmode.savedMice + 1
+		end
+	end,
+}
