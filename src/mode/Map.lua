@@ -175,7 +175,7 @@ mode.map = {
 							-- "img.png,0/1 (foreground),x or 0,y or 0"
 							info[2] = tonumber(info[2])
 							if table.find({0,1},info[2]) then
-								mode.map.images[#mode.map.images + 1] = tfm.exec.addImage(info[1],(info[2] == 0 and "?" or info[2] == 1 and "&") .. k,tonumber(info[3]) or 0,tonumber(info[4]) or 0))
+								mode.map.images[#mode.map.images + 1] = tfm.exec.addImage(info[1],(info[2] == 0 and "?" or info[2] == 1 and "&") .. k,tonumber(info[3]) or 0,tonumber(info[4]) or 0)
 							end
 						end
 					end
