@@ -29,6 +29,7 @@ system.init = function()
 		table.foreach(tfm.get.room.playerList,eventNewPlayer)
 	end
 	
+	normalizeTranslation()
 	mode[system.gameMode].init()
 end
 system.init()
