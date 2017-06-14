@@ -234,7 +234,7 @@ mode.grounds = {
 				[12] = {"Rectángulo","Cada color tiene su propia función","?",{
 					["C90909"] = "Te mata",
 					["18C92B"] = "Revive todos los enemigos",
-					["555D77"] = "Respawning Checkpoint",
+					["555D77"] = "Respawning Checkpoint", -- *
 				}},
 				[13] = {"Círculo","Cada color tiene su propia función","?"},
 				[14] = {"Invisible","?","?"},
@@ -336,25 +336,13 @@ mode.grounds = {
 				[12] = {"Rectangle","Chaque couleur a sa propre fonction","?",{
 					["C90909"] = "Te tue",
 					["18C92B"] = "Ressuscite tous les ennemis",
-					["555D77"] = "Respawning Checkpoint",
+					["555D77"] = "Respawning Checkpoint", -- *
 				}},
 				[13] = {"Cercle","Chaque couleur a sa propre fonction","?"},
 				[14] = {"Invisible","?","?"},
 				[15] = {"Toile d'araignée","Vous téléporte au point de spawn","?"},
 			},
-			categories = {
-				[1] = "Often long maps that, in most of the cases, the players must pass the same obstacles more than once.",
-				[2] = "Usually long maps with dodgeable spiderwebs or lavas, sometimes using invisible waters to simule a fly.",
-				[3] = "Harder maps that requires multiple skills to be completed.",
-				[4] = "Maps that has as main obstacle the water drowning.",
-				[5] = "Maps based mainly on lava teleports.",
-				[6] = "Maps that requires a new skill, with mechanisms or something that makes you think before act.",
-				[7] = "Maps based on speed and agility, built mostly with ice grounds.",
-				[8] = "Maps based on snowball mechanisms/technics.",
-				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
-				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
-				[11] = "Maps with vampires.",
-			},
+			-- *
 			
 			welcome = "Bienvenue à #%s! Pouvez vous être la souris la plus rapide grâce aux effets des sols? Essayez!\n<PS>Appuyez sur H pour plus d'informations!",
 			developer = "Développé par %s",
@@ -419,7 +407,7 @@ mode.grounds = {
 				[4] = {"Cartes","<J>Cartes : %s\n\n\tAccédez à %s et envoyez votre carte. N'oubliez pas de lire toutes les règles avant!"},
 				[5] = {"Merci à","<R>%s <G>- <N>Développeur\n%s <G>- <N>Traducteurs\n%s <G>- <N>Evaluateurs de maps"},
 			},
-			max = "15a2df47d2e",
+			-- *
 		},
 		pl = {
 			grounds = {
@@ -445,17 +433,17 @@ mode.grounds = {
 				[15] = {"Pajęcza sieć","Przenosi ciebie do miejsca spawnu","?"},
 			},
 			categories = {
-				[1] = "Often long maps that, in most of the cases, the players must pass the same obstacles more than once.",
-				[2] = "Usually long maps with dodgeable spiderwebs or lavas, sometimes using invisible waters to simule a fly.",
-				[3] = "Harder maps that requires multiple skills to be completed.",
-				[4] = "Maps that has as main obstacle the water drowning.",
-				[5] = "Maps based mainly on lava teleports.",
-				[6] = "Maps that requires a new skill, with mechanisms or something that makes you think before act.",
-				[7] = "Maps based on speed and agility, built mostly with ice grounds.",
-				[8] = "Maps based on snowball mechanisms/technics.",
-				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
-				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
-				[11] = "Maps with vampires.",
+				[1] = "Często długie mapy, w większości przypadków, gracze muszą przejść takie same przeszkody.",
+				[2] = "Zwyczajnie długie mapy z lawami i pajęczynami, czasami używana woda aby zasymulować latanie.",
+				[3] = "Trudniejsze mapy, które wymagają większej ilości zdolności, aby zostały ukończone.",
+				[4] = "Mapy, które jako główną mapę mają wodę, w której myszki się topią.",
+				[5] = "Mapy bazowane głównie na teleportacji z lawy.",
+				[6] = "Mapy, które wymagają nowej zdolności, z mechanizmem albo czymś co powoduje, że musisz myśleć zanim coś zrobisz.",
+				[7] = "Mapy bazowane na szybkości i zwinności, budowane najczęsciej z gruntów lodu.",
+				[8] = "Mapy bazowane na technikach/mechanikach śnieżnych kulek.",
+				[9] = "Mapy z zupełnie inną rozgrywką niż inne kategorie, również znaduje się w <I>mapach vanilliowych</I>.",
+				[10] = "Mapy (w większości) zdolne do przejścia samemu, ale szybciej się ją przechodzi gdy gracze pracują wspólnie.",
+				[11] = "Mapy z wampirami.",
 			},
 			
 			welcome = "Witaj w #%s! Możesz zostać najszybszą myszką, używając moce gruntów? Spróbuj!\n<PS>Wciśnij H, aby otrzymać więcej informacji!",
@@ -546,19 +534,7 @@ mode.grounds = {
 				[14] = {"Láthatatlan","?","?"},
 				[15] = {"Pókháló","Elteleportál téged a kezdőpontra","?"},
 			},
-			categories = {
-				[1] = "Often long maps that, in most of the cases, the players must pass the same obstacles more than once.",
-				[2] = "Usually long maps with dodgeable spiderwebs or lavas, sometimes using invisible waters to simule a fly.",
-				[3] = "Harder maps that requires multiple skills to be completed.",
-				[4] = "Maps that has as main obstacle the water drowning.",
-				[5] = "Maps based mainly on lava teleports.",
-				[6] = "Maps that requires a new skill, with mechanisms or something that makes you think before act.",
-				[7] = "Maps based on speed and agility, built mostly with ice grounds.",
-				[8] = "Maps based on snowball mechanisms/technics.",
-				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
-				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
-				[11] = "Maps with vampires.",
-			},
+			-- *
 			
 			welcome = "Üdvözöllek a #%s! Sikerül neked a leggyorsabb egérré válni a talajhatások használatával? Próbáld ki!\n<PS>Nyomd meg a H betűt több információért!",
 			developer = "Fejlesztve %s által",
@@ -623,7 +599,7 @@ mode.grounds = {
 				[4] = {"Pályák","<J>Pályák : %s\n\n\tEngedélyezd a %s és küldd be a pályádat. Előtte ne felejtsd el elolvasni az összes szabály!"},
 				[5] = {"Köszönet","<R>%s - Nak <G>- <N>Fejlesztő\n%s <G>- <N>Fordítók\n%s <G>- <N>Pálya értékelők"},
 			},
-			max = "15a2df47d2e",
+			-- *
 		},
 		ar = {
 			grounds = {
@@ -648,19 +624,7 @@ mode.grounds = {
 				[14] = {"الإختفاء","?","?"},
 				[15] = {"شبكة العنكبوت","تنقلك إلى نقطة البداية","?"},
 			},
-			categories = {
-				[1] = "Often long maps that, in most of the cases, the players must pass the same obstacles more than once.",
-				[2] = "Usually long maps with dodgeable spiderwebs or lavas, sometimes using invisible waters to simule a fly.",
-				[3] = "Harder maps that requires multiple skills to be completed.",
-				[4] = "Maps that has as main obstacle the water drowning.",
-				[5] = "Maps based mainly on lava teleports.",
-				[6] = "Maps that requires a new skill, with mechanisms or something that makes you think before act.",
-				[7] = "Maps based on speed and agility, built mostly with ice grounds.",
-				[8] = "Maps based on snowball mechanisms/technics.",
-				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
-				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
-				[11] = "Maps with vampires.",
-			},
+			-- *
 			
 			welcome = "مرحبا إلى #%s! هل يمكنك أن تكون أسرع فأر يستعمل قوى الأرض؟ قم بتجربتها!\n<PS>اضغط على الزر H لمعرفة المزيد!",
 			developer = "مبرمجة من قبل %s",
@@ -725,7 +689,7 @@ mode.grounds = {
 				[4] = {"الخرائط","<J>الخرائط : %s\n\n\tتفعيل %s وأرسل الخارطة. لا تنسى قراءة القوانين!"},
 				[5] = {"شكرا لـ","<R>%s <G>- <N>المبرمج\n%s <G>- <N>مترجمون\n%s <G>- <N>مقيموا الخرائط"},
 			},
-			max = "15a2df47d2e",
+			-- *
 		},
 		nl = {
 			grounds = {
@@ -744,25 +708,13 @@ mode.grounds = {
 				[12] = {"Rechthoek","Elke kleur heeft zijn eigen functie","?",{
 					["C90909"] = "Vermoordt jou",
 					["18C92B"] = "Brengt alle tegenstanders weer tot leven",
-					["555D77"] = "Respawning Checkpoint",
+					["555D77"] = "Respawning Checkpoint", -- *
 				}},
 				[13] = {"Cirkel","Elke kleur heeft zijn eigen functie","?"},
 				[14] = {"Onzichtbaar","?","?"},
 				[15] = {"Spinnenweb","Teleport je naar het beginpunt","?"},
 			},
-			categories = {
-				[1] = "Often long maps that, in most of the cases, the players must pass the same obstacles more than once.",
-				[2] = "Usually long maps with dodgeable spiderwebs or lavas, sometimes using invisible waters to simule a fly.",
-				[3] = "Harder maps that requires multiple skills to be completed.",
-				[4] = "Maps that has as main obstacle the water drowning.",
-				[5] = "Maps based mainly on lava teleports.",
-				[6] = "Maps that requires a new skill, with mechanisms or something that makes you think before act.",
-				[7] = "Maps based on speed and agility, built mostly with ice grounds.",
-				[8] = "Maps based on snowball mechanisms/technics.",
-				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
-				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
-				[11] = "Maps with vampires.",
-			},
+			-- *
 			
 			
 			welcome = "Welkom bij #%s! Ben jij de snelste muis door grond effecten te gebruiken? Probeer het!",
@@ -819,7 +771,7 @@ mode.grounds = {
 						[1] = "<VP>!%s</VP> <R>or</R> <VP>Key H</VP> - Opent de Help menu!",
 						[2] = "<VP>!%s</VP> - Opent de leaderboard!",
 						[3] = "<VP>!%s</VP> - Opent help op basis van de grond waarop je staat!",
-						[4] = "<VP>!%s</VP> - Displays the map info if it is in the rotation!",
+						[4] = "<VP>!%s</VP> - Displays the map info if it is in the rotation!", -- *
 					}},
 					[3] = {"\n\t<J>» Kamer admin</J>\n",{
 						[1] = "<VP>!%s</VP> <PS>wachtwoord</PS> - Voegt of haalt een wachtwoord weg van een kamer!",
@@ -828,7 +780,7 @@ mode.grounds = {
 				[4] = {"Maps","<J>Maps : %s\n\n\tBereik %s en verzend jouw map. Vergeet niet om alle regels te lezen voordat je begint!"},
 				[5] = {"Dank aan","<R>%s <G>- <N>Developer\n%s <G>- <N>Translators\n%s <G>- <N>Mapbeoordelaars"},
 			},
-			max = "15a2df47d2e",
+			-- *
 		},
 		de = {
 			grounds = {
@@ -847,25 +799,13 @@ mode.grounds = {
 				[12] = {"Rechteck","Jede Farbe hat seine eigene Funktion","?",{
 					["C90909"] = "Tötet du",
 					["18C92B"] = "Aufleben alle Feinde",
-					["555D77"] = "Respawning Checkpoint",
+					["555D77"] = "Respawning Checkpoint", -- *
 				}},
 				[13] = {"Kreis","Jede Farbe hat seine eigene Funktion","?"},
 				[14] = {"Unsichtbar","?","?"},
 				[15] = {"Spinnweben","Teleportiert dich zum Startpunkt","?"},
 			},
-			categories = {
-				[1] = "Often long maps that, in most of the cases, the players must pass the same obstacles more than once.",
-				[2] = "Usually long maps with dodgeable spiderwebs or lavas, sometimes using invisible waters to simule a fly.",
-				[3] = "Harder maps that requires multiple skills to be completed.",
-				[4] = "Maps that has as main obstacle the water drowning.",
-				[5] = "Maps based mainly on lava teleports.",
-				[6] = "Maps that requires a new skill, with mechanisms or something that makes you think before act.",
-				[7] = "Maps based on speed and agility, built mostly with ice grounds.",
-				[8] = "Maps based on snowball mechanisms/technics.",
-				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
-				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
-				[11] = "Maps with vampires.",
-			},
+			-- *
 			
 			welcome = "Willkommen zu #%s! Kannst du die schnellste Maus mit den Bodeneffekten sein? Versuch es!\n<PS>Drück H für mehr informationen!",
 			developer = "Entwickelt von %s",
@@ -921,7 +861,7 @@ mode.grounds = {
 						[1] = "<VP>!%s</VP> <R>oder</R> <VP>Taste H</VP> - Öffnet das Hilfsmenu!",
 						[2] = "<VP>!%s</VP> - Öffnet die Bestenliste!",
 						[3] = "<VP>!%s</VP> - Öffnet die hilfe nach dem boden auf dem du bist auf!",
-						[4] = "<VP>!%s</VP> - Displays the map info if it is in the rotation!",
+						[4] = "<VP>!%s</VP> - Displays the map info if it is in the rotation!", -- *
 					}},
 					[3] = {"\n\t<J>» Zimmer admin</J>\n",{
 						[1] = "<VP>!%s</VP> <PS>passwort</PS> - Hinzufugen oder entfernen eines passwortes im raum!",
@@ -930,7 +870,7 @@ mode.grounds = {
 				[4] = {"Maps","<J>Maps : %s\n\n\tBesuche das Thema %s und reiche deine Map ein. Vergiss nicht zuvor alle Regeln zu lesen!"},
 				[5] = {"Danke an ","<R>%s <G>- <N>Entwickler\n%s <G>- <N>Übersetzer\n%s <G>- <N>Landkarte bewerter"},
 			},
-			max = "15a2df47d2e",
+			-- *
 		},
 	},
 	langue = "en",
