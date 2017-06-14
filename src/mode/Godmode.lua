@@ -70,6 +70,11 @@ mode.godmode = {
 		end
 
 		tfm.exec.chatMessage("<ROSE>" .. system.getTranslation("welcome"),n)
+		
+		local id = tfm.exec.addImage("15ca3f4a200.png","&0",5,150,n)
+		system.newTimer(function()
+			tfm.exec.removeImage(id)
+		end,10000,false)
 	end,
 	-- New Game
 	eventNewGame = function()
@@ -83,7 +88,6 @@ mode.godmode = {
 			mode.godmode.info[v].roundSha = mode.godmode.info[v].roundSha + 1
 			tfm.exec.chatMessage("<CH>" .. system.getTranslation("shaman"),v)
 		end
-
 	end,
 	-- Keyboard
 	eventKeyboard = function(n,k)
