@@ -101,6 +101,8 @@ mode.godmode = {
 			mode.godmode.info[v].roundSha = mode.godmode.info[v].roundSha + 1
 			tfm.exec.chatMessage("<CH>" .. system.getTranslation("shaman"),v)
 		end
+		
+		tfm.exec.setGameTime(183)
 	end,
 	-- Keyboard
 	eventKeyboard = function(n,k)
