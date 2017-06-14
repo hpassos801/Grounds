@@ -4,7 +4,7 @@
 
 --[[ Module ]]--
 local module = {
-	_VERSION = "3.2",
+	_VERSION = "3.3",
 	_NAME = "grounds",
 	_STATUS = "semi-official",
 	_AUTHOR = "Bolodefchoco",
@@ -287,7 +287,7 @@ end
 
 system.submodes = {}
 
-system.gameMode = "grounds"
+system.gameMode = module._NAME
 system.modeChanged = os.time() + 10e3
 
 system.getGameMode = function(value)
@@ -3659,8 +3659,8 @@ mode.chat = {
 			tfm.exec.disableAutoTimeLeft(mode.chat.autoNeWGame)
 		elseif p[1] == "adm" and system.roomAdmins[n] then
 			system.roomAdmins[string.nick(p[2])] = true
-		elseif p[1] == "unlock" then
-			tfm.exec.chatMessage("<J>" .. string.format(system.getTranslation("title"),n,p[2]),n)
+		elseif string.sub(c,1,6) == "unlock" then
+			tfm.exec.chatMessage("<J>" .. string.format(system.getTranslation("title"),n,string.sub(c,8)),n)
 		end
 	end,	
 }
@@ -5310,23 +5310,30 @@ mode.godmode = {
 			shaman = "Hello shaman! Try to build without nails! Good luck.",
 
 			-- Info
-			xp = "You've saved %s mice, but %s died.",
+			info = "Use your creativity and build WITHOUT nails in shaman maps! The more mice you save, the higher your score will be. Do not let the mice die.\nPress P or type !p [playername] to open a profile.",
+			xp = "You've saved %s mice and %s died.",
 
 			-- Warning
 			nail = "You can use %s more nails. After that, you will die.",
 			kill = "Try not to use nails in your buildings.",
 			fail = "You failed!",
+			
+			-- Profile
+			profile = "Rounds : %s\n<N>Data : %s <G>/ %s\n\n<N>Deaths : %s",
 		},
 		br = {
 			welcome = "Bem-vindo ao <B>#godmode</B>. Digite !info para ler a mensagem de ajuda.\n\tReporte qualquer problema para Bolodefchoco.",
 
 			shaman = "Olá shaman! Tente construir sem pregos! Boa sorte.",
 
-			xp = "Você salvou %s ratos, mas %s morreram.",
+			info = "Utilize sua criatividade e construa em mapas shaman SEM pregos! Quanto mais ratos você salvar, maior será sua pontuação. Não deixe nenhum rato morrer.\nPressione P ou digite !p [nome] para abrir um perfil.",
+			xp = "Você salvou %s ratos e %s morreram.",
 
 			nail = "Você pode usar mais %s pregos. Depois disso, você morrerá.",
 			kill = "Tente não usar pregos em suas construções.",
 			fail = "Você falhou!",
+
+			profile = "Partidas : %s\n<N>Dados : %s <G>/ %s\n\n<N>Mortes : %s",
 		},
 	},
 	langue = "en",
@@ -5346,13 +5353,19 @@ mode.godmode = {
 	-- New Game Settings
 	savedMice = 0,
 	deadMice = 0,
+	-- Profile
+	profile = function(n,p)
+		ui.addTextArea(0,"<p align='center'><B><R><a href='event:profile.close'>X",n,513,115,20,20,1,1,1,true)
+		ui.addTextArea(1,"<p align='center'><font size='16'><B><V>"..p.."</V></B></font></p><p align='left'><font size='12'>\n<N>" .. string.format(system.getTranslation("profile"),"<V>"..mode.godmode.info[p].roundSha,"<J>"..mode.godmode.info[p].cheeseMice,"<R>"..mode.godmode.info[p].deathMice,"<V>"..mode.godmode.info[p].deathSha),n,290,115,220,160,1,1,1,true)
+	end,
 	-- Init
 	init = function()
 		mode.godmode.translations.pt = mode.godmode.translations.br
 		mode.godmode.langue = mode.godmode.translations[tfm.get.room.community] and tfm.get.room.community or "en"
 
 		tfm.exec.disableAutoNewGame()
-		tfm.exec.newGame(table.random({"#4","#8"}))
+		tfm.exec.disableAllShamanSkills()
+		tfm.exec.newGame("#4")
 	end,
 	-- New Player
 	eventNewPlayer = function(n)
@@ -5366,7 +5379,7 @@ mode.godmode = {
 			}
 		end
 
-		for k,v in next,{66,67,74,78,86} do
+		for k,v in next,{66,67,74,78,80,86} do
 			system.bindKeyboard(n,v,true,true)
 		end
 
@@ -5392,7 +5405,9 @@ mode.godmode = {
 	end,
 	-- Keyboard
 	eventKeyboard = function(n,k)
-		if not tfm.get.room.playerList[n].isDead and tfm.get.room.playerList[n].isShaman then
+		if k == 80 then
+			mode.godmode.profile(n,n)
+		elseif not tfm.get.room.playerList[n].isDead and tfm.get.room.playerList[n].isShaman then
 			if table.find({66,67,74,78,86},k) then -- B;C;V;N;J
 				mode.godmode.info[n].usedNails = mode.godmode.info[n].usedNails + 1
 				if mode.godmode.info[n].usedNails > 4 then
@@ -5421,7 +5436,7 @@ mode.godmode = {
 					tfm.exec.chatMessage("<CH>" .. string.format(system.getTranslation("xp"),mode.godmode.savedMice,mode.godmode.deadMice),v)
 				end
 			end
-			tfm.exec.newGame(table.random({"#4","#8"}))
+			tfm.exec.newGame("#4")
 		end
 	end,
 	-- Player Died
@@ -5438,6 +5453,33 @@ mode.godmode = {
 	eventPlayerWon = function(n)
 		if not tfm.get.room.playerList[n].isShaman then
 			mode.godmode.savedMice = mode.godmode.savedMice + 1
+		end
+	end,
+	-- Commands
+	eventChatCommand = function(n,c)
+		local p = string.split(c,"[^%s]+",string.lower)
+		if p[1] == "info" then
+			tfm.exec.chatMessage("<J>" .. system.getTranslation("info"),n)
+		elseif p[1] == "p" then
+			if p[2] then
+				p[2] = string.nick(p[2])
+				if mode.godmode.info[p[2]] then
+					mode.godmode.profile(n,p[2])
+				end
+			else
+				mode.godmode.profile(n,n)
+			end
+		end
+	end,
+	-- Callback
+	eventTextAreaCallback = function(i,n,c)
+		local p = string.split(c,"[^%.]+")
+		if p[1] == "profile" then
+			if p[2] == "close" then
+				for i = 0,1 do
+					ui.removeTextArea(i,n)
+				end
+			end
 		end
 	end,
 }
