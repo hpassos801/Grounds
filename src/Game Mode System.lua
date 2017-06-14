@@ -9,7 +9,7 @@ end
 
 system.submodes = {}
 
-system.gameMode = "grounds"
+system.gameMode = module._NAME
 system.modeChanged = os.time() + 10e3
 
 system.getGameMode = function(value)
