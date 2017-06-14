@@ -187,6 +187,19 @@ disableChatCommand = function(command)
 	system.disableChatCommandDisplay(string.lower(command),true)
 	system.disableChatCommandDisplay(string.upper(command),true)
 end	
+normalizeTranslation = function()
+	local t = mode[system.gameMode].translations
+
+	for k,v in next,t.en do
+		for i,j in next,t do
+			if i ~= "en" then
+				if not j[k] then
+					j[k] = v
+				end
+			end
+		end
+	end
+end
 
 	-- XML Dealer
 xml = {}
