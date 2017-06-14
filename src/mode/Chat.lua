@@ -192,8 +192,8 @@ mode.chat = {
 			tfm.exec.disableAutoTimeLeft(mode.chat.autoNeWGame)
 		elseif p[1] == "adm" and system.roomAdmins[n] then
 			system.roomAdmins[string.nick(p[2])] = true
-		elseif p[1] == "unlock" then
-			tfm.exec.chatMessage("<J>" .. string.format(system.getTranslation("title"),n,p[2]),n)
+		elseif string.sub(c,1,6) == "unlock" then
+			tfm.exec.chatMessage("<J>" .. string.format(system.getTranslation("title"),n,string.sub(c,8)),n)
 		end
 	end,	
 }
