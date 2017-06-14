@@ -5178,10 +5178,10 @@ mode.map = {
 						for k,v in next,images do
 							local info = string.split(v,"[^,]+")
 							
-							-- "img.png,0/1 (foreground),x or 0,y or 0"
-							info[2] = tonumber(info[2])
+							-- "img.png,x or 0,y or 0,0/1 (foreground)"
+							info[2] = tonumber(info[4]) or 0
 							if table.find({0,1},info[2]) then
-								mode.map.images[#mode.map.images + 1] = tfm.exec.addImage(info[1],(info[2] == 0 and "?" or info[2] == 1 and "&") .. k,tonumber(info[3]) or 0,tonumber(info[4]) or 0)
+								mode.map.images[#mode.map.images + 1] = tfm.exec.addImage(info[1],(info[4] == 0 and "?" or info[4] == 1 and "&") .. k,tonumber(info[2]) or 5,tonumber(info[3]) or 30)
 							end
 						end
 					end
