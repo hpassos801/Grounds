@@ -320,13 +320,16 @@ mode.bootcampP = {
 	end,
 	-- Player Died
 	eventPlayerDied = function(n)
-		tfm.exec.respawnPlayer(n)
-		if mode.bootcampP.checkpoint and mode.bootcampP.info[n].checkpoint[1] then
-			tfm.exec.movePlayer(n,mode.bootcampP.info[n].checkpoint[2],mode.bootcampP.info[n].checkpoint[3])
-		end
-		if mode.bootcampP.checkpoint and mode.bootcampP.info[n].cheese and mode.bootcampP.respawnCheese then
-			tfm.exec.giveCheese(n)
-		end
+		system.newTimer(function()
+			tfm.exec.respawnPlayer(n)
+			
+			if mode.bootcampP.checkpoint and mode.bootcampP.info[n].checkpoint[1] then
+				tfm.exec.movePlayer(n,mode.bootcampP.info[n].checkpoint[2],mode.bootcampP.info[n].checkpoint[3])
+			end
+			if mode.bootcampP.checkpoint and mode.bootcampP.info[n].cheese and mode.bootcampP.respawnCheese then
+				tfm.exec.giveCheese(n)
+			end
+		end,1000,false)
 	end,
 	-- Victory
 	eventPlayerWon = function(n,t,time)
