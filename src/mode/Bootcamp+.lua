@@ -329,7 +329,7 @@ mode.bootcampP = {
 			if mode.bootcampP.checkpoint and mode.bootcampP.info[n].cheese and mode.bootcampP.respawnCheese then
 				tfm.exec.giveCheese(n)
 			end
-		end,1000,false)
+		end,1500,false)
 	end,
 	-- Victory
 	eventPlayerWon = function(n,t,time)
