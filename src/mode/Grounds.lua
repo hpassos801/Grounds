@@ -38,6 +38,7 @@ mode.grounds = {
 				[9] = "Maps with different gameplays that doesn't fit any other category, also locates the <i>vanilla maps</i>.",
 				[10] = "Soloable (mostly) maps, but with faster paths when the players work together.",
 				[11] = "Maps with vampires.",
+				[12] = "Houses without gameplay, only a place for noobs.",
 			},
 
 			-- Init
@@ -68,6 +69,7 @@ mode.grounds = {
 			
 			-- New map
 			powersenabled = "The ground powers were enabled! Good luck!",
+			tribehouse = "This is a House place. No stats, no gameplay. Enjoy with your friends",
 			
 			-- Language
 			language = "Current language : <J>%s",
@@ -150,6 +152,7 @@ mode.grounds = {
 				[9] = "Mapas com gameplays diferentes que não se encaixam em nenhuma outra categoria, também dá espaço aos <i>mapas vanilla</i>.",
 				[10] = "Mapas em que você pode completar sozinho (em maioria), mas com caminhos mais rápidos quando há trabalho em equipe entre os jogadores.",
 				[11] = "Mapas com vampiros.",
+				[12] = "Casas sem jogabilidade, apenas um lugar para noobs.",
 			},
 			
 			welcome = "Bem-vindo ao #%s! Você pode ser o rato mais rápido usando os efeitos dos pisos? Prove!\n<PS>Pressione H para mais informações!",
@@ -175,6 +178,7 @@ mode.grounds = {
 			},
 			
 			powersenabled = "Os poderes dos pisos foram ativados! Boa sorte!",
+			tribehouse = "Este lugar é uma casa. Sem estatísticas, sem gameplay. Divirta-se com seus amigos",
 			
 			language = "Idioma atual : <J>%s",
 			
@@ -252,6 +256,7 @@ mode.grounds = {
 				[9] = "Mapas con un gameplay diferente que no entran en otra categoría, también localizados en los <i>mapas vanilla</i>.",
 				[10] = "Mapas que (mayoritariamente) pueden ser completados solo, pero con patrones rápidos donde los jugadores necesitan trabajar juntos.",
 				[11] = "Mapas con vampiros.",
+				[12] = "Houses without gameplay, only a place for noobs",
 			},
 			
 			welcome = "Bienvenido a #%s! Podrás ser el más rápido usando los efectos de los suelos? Inténtalo!\n<PS>Presiona H para más información!",
@@ -277,6 +282,7 @@ mode.grounds = {
 			},
 			
 			powersenabled = "Los poderes de los suelos han sido activados! Buena suerte!",
+			-- *
 			
 			language = "Idioma actual : <J>%s",
 			
@@ -367,7 +373,8 @@ mode.grounds = {
 			zombie = "Vous êtes maintenant un zombie!",
 			
 			powersenabled = "Les pouvoirs des sols ont été activés! Bonne chance!",
-			
+			-- *
+	
 			language = "Langage actuel : <J>%s",
 			
 			password = {
@@ -444,6 +451,7 @@ mode.grounds = {
 				[9] = "Mapy z zupełnie inną rozgrywką niż inne kategorie, również znaduje się w <I>mapach vanilliowych</I>.",
 				[10] = "Mapy (w większości) zdolne do przejścia samemu, ale szybciej się ją przechodzi gdy gracze pracują wspólnie.",
 				[11] = "Mapy z wampirami.",
+				[12] = "Chatki plemienne bez rozgrywki, są miejscem tylko dla noobków.",
 			},
 			
 			welcome = "Witaj w #%s! Możesz zostać najszybszą myszką, używając moce gruntów? Spróbuj!\n<PS>Wciśnij H, aby otrzymać więcej informacji!",
@@ -469,6 +477,7 @@ mode.grounds = {
 			},
 
 			powersenabled = "Moce gruntów są włączone! Powodzenia!",
+			tribehouse = "To jest miejsce chatki plemiennej. Bez statystyk, bez rozgrywki. Ciesz się ze swoimi znajomymi.",
 
 			language = "Bieżący język : <J>%s",
 			
@@ -559,6 +568,7 @@ mode.grounds = {
 			},
 			
 			powersenabled = "A talajhatások engedélyezve lettek! Sok szerencsét!",
+			-- *
 			
 			language = "Jelenlegi nyelv : <J>%s",
 			
@@ -649,6 +659,7 @@ mode.grounds = {
 			},
 			
 			powersenabled = "تم تفعيل قوى الأرض! حظا موفقا!",
+			-- *
 			
 			language = "اللغة الحالية : <J>%s",
 			
@@ -740,6 +751,7 @@ mode.grounds = {
 			},
 
 			powersenabled = "De grondkrachten zijn ingeschakeld! Succes!",
+			-- *
 
 			language = "Huidige taal : <J>%s",
 
@@ -830,6 +842,7 @@ mode.grounds = {
 			},
 			
 			powersenabled = "Der Effekt des Bodens wurde aktiviert! Viel Glück!",
+			-- *
 			
 			language = "Aktuelle Sprache : <J>%s",
 			
@@ -1012,6 +1025,17 @@ mode.grounds = {
 				end
 			end,
 		},
+		[12] = {
+			name = "House",
+			queue = {510966},
+			id = 1,
+			icon = {"15cb6dbea83",-8,-4},
+			color = "D1AB83",
+			after = function()
+				tfm.exec.setGameTime(1800) -- 30 minutes
+				tfm.exec.chatMessage("<ROSE>" .. system.getTranslation("tribehouse"))
+			end,
+		},
 	},
 	rotation = {1,{9,7,4,1,5,7,10,8,6,11,2,1,3,5}},
 	newMap = coroutine.wrap(function()
@@ -1068,6 +1092,7 @@ mode.grounds = {
 			return "<PT>[•] <BV>%s\n\n<G>[^_^] <VP>%s"
 		end
 	end)(),
+	isHouse = system.roomNumber == 801,
 	-- Leaderboard Settings
 	leaderboard = {update = 0,data = {}},
 	-- Shop
@@ -1629,6 +1654,13 @@ mode.grounds = {
 			disableChatCommand(v)
 		end
 		
+		-- House system
+		if mode.grounds.isHouse then
+			system.isRoom = false
+			mode.grounds.rotation = {1,{12}}
+			tfm.exec.disableAfkDeath()
+		end		
+		
 		-- Init
 		mode.grounds.alivePlayers,mode.grounds.totalPlayers = system.players()
 		for _,f in next,{"AutoShaman","AutoScore","AutoNewGame","AutoTimeLeft","MinimalistMode","PhysicalConsumables"} do
@@ -1800,8 +1832,10 @@ mode.grounds = {
 				},
 				infoImage = {},
 			}
-			ui.addTextArea(0,"",n,-1500,-1500,3e3,3e3,1,1,.8,true)
-			mode.grounds.uimenu(n)
+			if not mode.grounds.isHouse then
+				ui.addTextArea(0,"",n,-1500,-1500,3e3,3e3,1,1,.8,true)
+				mode.grounds.uimenu(n)
+			end
 		end
 	
 		mode.grounds.info[n].isOnline = true
@@ -1820,7 +1854,7 @@ mode.grounds = {
 		tfm.exec.setGameTime(3 * 60)
 
 		mode.grounds.podium = 0
-		mode.grounds.availableRoom = mode.grounds.totalPlayers > 2 and system.isRoom
+		mode.grounds.availableRoom = system.isRoom and mode.grounds.totalPlayers > 2
 		if not mode.grounds.availableRoom then
 			if math.random(30) < 16 then
 				if not system.isRoom then
@@ -1846,7 +1880,7 @@ mode.grounds = {
 		mode.grounds.afterFunction()
 		
 		mode.grounds.hasWater = false
-		local deactivateWater = false
+		local deactivateWater = mode.grounds.isHouse
 
 		mode.grounds.despawnGrounds = {}
 		mode.grounds.gsys.disabledGrounds = {}
@@ -2016,18 +2050,24 @@ mode.grounds = {
 			mode.grounds.alivePlayers,mode.grounds.totalPlayers = system.players()
 		end
 		
-		if _G.currentTime == 3 and math.random(50) < 16 and os.time() > mode.grounds.announceTimer then
+		if not mode.grounds.isHouse and _G.currentTime == 3 and math.random(50) < 16 and os.time() > mode.grounds.announceTimer then
 			mode.grounds.announceTimer = os.time() + 5000
 			tfm.exec.chatMessage(string.format("<PT>[•] <BV>%s",system.getTranslation("powersenabled")))
 		end
 
-		if _G.currentTime%2 == 0 and not mode.grounds.review then
-			if mode.grounds.alivePlayers < 1 or _G.leftTime <= 2 then
+		if mode.grounds.isHouse and _G.currentTime%5 == 0 then
+			if _G.leftTime <= 2 then
 				tfm.exec.newGame(mode.grounds.newMap())
-			elseif mode.grounds.alivePlayers == 1 and _G.leftTime > 50 and mode.grounds.totalPlayers > 1 then
-				tfm.exec.setGameTime(30)
-			elseif mode.grounds.podium > 5 and mode.grounds.alivePlayers > 3 then
-				tfm.exec.setGameTime(20,false)
+			end
+		else
+			if _G.currentTime%2 == 0 and not mode.grounds.review then
+				if mode.grounds.alivePlayers < 1 or _G.leftTime <= 2 then
+					tfm.exec.newGame(mode.grounds.newMap())
+				elseif mode.grounds.alivePlayers == 1 and _G.leftTime > 50 and mode.grounds.totalPlayers > 1 then
+					tfm.exec.setGameTime(30)
+				elseif mode.grounds.podium > 5 and mode.grounds.alivePlayers > 3 then
+					tfm.exec.setGameTime(20,false)
+				end
 			end
 		end
 
@@ -2136,7 +2176,7 @@ mode.grounds = {
 			system.disableChatCommandDisplay(c,true)
 			local p = string.split(c,"[^%s]+",string.lower)
 			disableChatCommand(p[1])
-			if p[1] == mode.grounds.cmds.shop or p[1] == "o" then
+			if (p[1] == mode.grounds.cmds.shop or p[1] == "o") and not mode.grounds.isHouse then
 				if mode.grounds.info[n].shop.accessing then
 					mode.grounds.eventTextAreaCallback(nil,n,"shop.close")
 				else
@@ -2145,7 +2185,7 @@ mode.grounds = {
 						mode.grounds.uishop(n)
 					end
 				end
-			elseif p[1] == mode.grounds.cmds.profile or p[1] == "p" then
+			elseif (p[1] == mode.grounds.cmds.profile or p[1] == "p") and not mode.grounds.isHouse then
 				if p[2] then
 					p[2] = string.nick(p[2])
 					if mode.grounds.info[p[2]] then
@@ -2176,7 +2216,7 @@ mode.grounds = {
 				else
 					tfm.exec.chatMessage(string.format("<PT>[•] <J>!%s <PS>%s",p[1],table.concat(mode.grounds.langues," <G>-</G> ")),n)
 				end
-			elseif p[1] == mode.grounds.cmds.leaderboard or p[1] == "k" then
+			elseif (p[1] == mode.grounds.cmds.leaderboard or p[1] == "k") and not mode.grounds.isHouse then
 				if mode.grounds.info[n].leaderboardAccessing then
 					mode.grounds.eventTextAreaCallback(nil,n,"ranking.close")
 				else
@@ -2217,9 +2257,10 @@ mode.grounds = {
 					end
 				end
 				if not system.isRoom then
-					if p[1] == "time" and isMapEv then
+					local permission = (mode.grounds.isHouse and system.roomAdmins[n] or isMapEv)
+					if p[1] == "time" and permission then
 						tfm.exec.setGameTime(p[2] or 1e7)
-					elseif p[1] == "np" and p[2] and isMapEv then
+					elseif p[1] == "np" and p[2] and permission then
 						mode.grounds.mapInfo = {0,0,0,0,"CAA4CF"}
 						tfm.exec.newGame(p[2])
 					elseif p[1] == "review" and isMapEv then
@@ -2229,15 +2270,15 @@ mode.grounds = {
 						if mode.grounds.review then
 							table.foreach(mode.grounds.info,tfm.exec.respawnPlayer)
 						end
-					elseif p[1] == "next" and _G.currentTime > 10 and isMapEv then
+					elseif p[1] == "next" and _G.currentTime > 10 and permission then
 						tfm.exec.newGame(mode.grounds.newMap())
-					elseif p[1] == "again" and _G.currentTime > 10 and isMapEv then
+					elseif p[1] == "again" and _G.currentTime > 10 and permission then
 						if tfm.get.room.currentMap then
 							tfm.exec.newGame(tfm.get.room.currentMap)
 						end
 					end
 				end
-				if p[1] == "is" and isMapEv then
+				if p[1] == "is" and (mode.grounds.isHouse or isMapEv) then
 					p[2] = p[2] or tfm.get.room.currentMap
 					p[2] = tonumber(string.match(p[2],"@?(%d+)")) or 0
 					
@@ -2268,12 +2309,15 @@ mode.grounds = {
 	eventPlayerWon = function(n)
 		if mode.grounds.availableRoom and mode.grounds.info[n].groundsDataLoaded and system.isPlayer(n) then
 			mode.grounds.podium = mode.grounds.podium + 1
+			
 			if mode.grounds.podium < 4 then
 				mode.grounds.info[n].stats.podiums = mode.grounds.info[n].stats.podiums + 1
+				
 				local addedCoins = 20 - mode.grounds.podium * 5
 				mode.grounds.info[n].stats.groundsCoins = mode.grounds.info[n].stats.groundsCoins + addedCoins
 				tfm.exec.setPlayerScore(n,4-podium,true)
 				tfm.exec.chatMessage(string.format("<PT>[•] <BV>%s",string.format(system.getTranslation("gotcoin",n),"<J>+$"..addedCoins.."</J>")),n)
+				
 				if mode.grounds.podium == 1 then
 					tfm.exec.setGameTime(60,false)
 				end
@@ -2281,22 +2325,27 @@ mode.grounds = {
 				if mode.grounds.podium == 4 then
 					tfm.exec.setGameTime(30,false)
 				end
+				
 				mode.grounds.info[n].stats.groundsCoins = mode.grounds.info[n].stats.groundsCoins + 1
 				tfm.exec.setPlayerScore(n,1,true)
 			end
+			
 			if mode.grounds.hasWater then
 				mode.grounds.uibar(1,n,mode.grounds.info[n].drown,0x6FDA51,100,20)
 			end
+			
 			if system.miscAttrib ~= 0 then
 				if mode.grounds.podium == system.miscAttrib then
 					tfm.exec.setGameTime(0)
 				end
 			end
 		end
-		if mode.grounds.review then
+		
+		if mode.grounds.review or mode.grounds.isHouse then
 			tfm.exec.respawnPlayer(n)
+		else
+			mode.grounds.info[n].canRev = false
 		end
-		mode.grounds.info[n].canRev = false
 	end,
 	-- Died
 	eventPlayerDied = function(n)
@@ -2308,9 +2357,11 @@ mode.grounds = {
 				mode.grounds.uibar(1,n,mode.grounds.info[n].drown,0xDA516D,100,20)
 			end
 		end
+		
 		system.bindKeyboard(n,32,true,false)
 		ui.removeTextArea(-1,n)
-		if mode.grounds.review then
+		
+		if mode.grounds.review or mode.grounds.isHouse then
 			tfm.exec.respawnPlayer(n)
 		end
 	end,
@@ -2333,6 +2384,9 @@ mode.grounds = {
 		if mode.grounds.hasWater then
 			mode.grounds.uibar(1,n,mode.grounds.info[n].drown,0x519DDA,100,20)
 		end
-		tfm.exec.chatMessage(string.format("<R>[•] %s",system.getTranslation("zombie",n)),n)
+		
+		if not mode.grounds.isHouse then
+			tfm.exec.chatMessage(string.format("<R>[•] %s",system.getTranslation("zombie",n)),n)
+		end
 	end,
 }
