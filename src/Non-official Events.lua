@@ -15,6 +15,15 @@ eventModeChanged = function()
 		image = {},
 		textarea = {}
 	}
+	
+	ui.addPopup(1,0,"",nil,-1500,-1500)
+	for k in next,tfm.get.room.playerList do
+		for i = 0,255 do
+			for v = 0,1 do
+				system.bindKeyboard(k,i,v == 0,false)
+			end
+		end
+	end
 end
 
 system.officialModeMessage = ""
