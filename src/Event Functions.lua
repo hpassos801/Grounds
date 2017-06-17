@@ -19,13 +19,26 @@ events.eventChatCommand = function(n,c)
 			end
 		end
 	end
-	if string.sub(1,6) == "module" then
-		c = string.upper(string.sub(8))
+	if string.sub(c,1,6) == "module" then
+		c = string.upper(string.sub(c,8))
 		if module["_" .. c] then
 			tfm.exec.chatMessage(c .. " : " .. table.concat(table.turnTable(module["_" .. c]),", "),n)
 		else
 			tfm.exec.chatMessage(string.format("VERSION : %s\nNAME : %s\nSTATUS : %s\nAUTHOR : %s\n\nMODE : %s",module._VERSION,module._NAME,module._STATUS,module._AUTHOR,system.gameMode),n)
 		end
+	elseif c == "modes" then
+		tfm.exec.chatMessage(table.concat(system.submodes,"\n",function(k,v)
+			return "#" .. system.normalizedModeName(v)
+		end),n)
+	elseif c == "admin" then
+		tfm.exec.chatMessage((function()
+			local str = {}
+			for k in next,system.roomAdmins do
+				str[#str + 1] = k
+			end
+			
+			return table.concat(str,", ")
+		end)(),n)
 	elseif c == "stop" and system.roomAdmins[n] then
 		system.exit()
 	end
