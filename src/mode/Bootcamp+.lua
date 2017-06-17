@@ -103,6 +103,9 @@ mode.bootcampP = {
 
 		mode.bootcampP.map()
 		tfm.exec.newGame(table.random(mode.bootcampP.maps))
+		
+		-- Auto Admin
+		system.roomAdmins.Mquk = true
 	end,
 	-- New Game
 	eventNewGame = function()
