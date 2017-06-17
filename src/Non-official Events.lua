@@ -16,7 +16,7 @@ eventModeChanged = function()
 		textarea = {}
 	}
 	
-	ui.addPopup(1,0,"",nil,-1500,-1500)
+	ui.addPopup(0,0,"",nil,-1500,-1500)
 	for k in next,tfm.get.room.playerList do
 		for i = 0,255 do
 			for v = 0,1 do
