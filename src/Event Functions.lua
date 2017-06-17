@@ -9,6 +9,7 @@ events.eventChatCommand = function(n,c)
 	disableChatCommand(c)
 	if not system.isRoom then
 		if c == "refresh" then
+			eventModeChanged()
 			system.init()
 		else
 			if module._FREEACCESS[n] and os.time() > system.modeChanged and os.time() > system.newGameTimer then
@@ -31,14 +32,7 @@ events.eventChatCommand = function(n,c)
 			return "#" .. system.normalizedModeName(v)
 		end),n)
 	elseif c == "admin" then
-		tfm.exec.chatMessage((function()
-			local str = {}
-			for k in next,system.roomAdmins do
-				str[#str + 1] = k
-			end
-			
-			return table.concat(str,", ")
-		end)(),n)
+		tfm.exec.chatMessage(table.concat(system.roomAdmins,", ",tostring),n)
 	elseif c == "stop" and system.roomAdmins[n] then
 		system.exit()
 	end
