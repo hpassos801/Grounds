@@ -27,7 +27,7 @@ events.eventChatCommand = function(n,c)
 end
 
 events.eventNewPlayer = function(n)
-	if system.officialModeMessage ~= "" then
-		tfm.exec.chatMessage(system.officialModeMessage,n)
+	if system.officialModeMessage[2] ~= "" then
+		tfm.exec.chatMessage(system.officialModeMessage[2],n)
 	end
 end
