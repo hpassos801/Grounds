@@ -1092,7 +1092,7 @@ mode.grounds = {
 			return "<PT>[•] <BV>%s\n\n<G>[^_^] <VP>%s"
 		end
 	end)(),
-	isHouse = system.roomNumber == 801,
+	isHouse = system.roomNumber == 801 or system.officialMode[1] == "village",
 	-- Leaderboard Settings
 	leaderboard = {update = 0,data = {}},
 	-- Shop
@@ -1654,12 +1654,19 @@ mode.grounds = {
 			disableChatCommand(v)
 		end
 		
+		-- Official modes running together
+		if system.officialMode[1] == "racing" then
+			mode.grounds.rotation = {1,{7}}
+		elseif system.officialMode[1] == "bootcamp" then
+			mode.grounds.rotation = {1,{3}}
+		end
+		
 		-- House system
 		if mode.grounds.isHouse then
 			system.isRoom = false
 			mode.grounds.rotation = {1,{12}}
 			tfm.exec.disableAfkDeath()
-		end		
+		end
 		
 		-- Init
 		mode.grounds.alivePlayers,mode.grounds.totalPlayers = system.players()
