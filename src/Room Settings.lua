@@ -21,6 +21,7 @@ system.setRoom = function()
 		end
 
 		for char,value in string.gmatch(system.roomAttributes,"(["..chars.."])([^"..chars.."]+)") do
+			value = string.match(value,"[^%s]+")
 			for k,v in next,system.roomSettings do
 				if k == char then
 					v(value)
