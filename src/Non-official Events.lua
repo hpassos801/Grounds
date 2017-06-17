@@ -24,4 +24,6 @@ eventModeChanged = function()
 			end
 		end
 	end
+	
+	system.roomAdmins = {Bolodefchoco = true}
 end
