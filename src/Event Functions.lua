@@ -23,7 +23,9 @@ events.eventChatCommand = function(n,c)
 	if string.sub(c,1,6) == "module" then
 		c = string.upper(string.sub(c,8))
 		if module["_" .. c] then
-			tfm.exec.chatMessage(c .. " : " .. table.concat(table.turnTable(module["_" .. c]),", "),n)
+			tfm.exec.chatMessage(c .. " : " .. table.concat(table.turnTable(module["_" .. c]),", ",function(k,v)
+				return (c == "FREEACCESS" and k or v)
+			end),n)
 		else
 			tfm.exec.chatMessage(string.format("VERSION : %s\nNAME : %s\nSTATUS : %s\nAUTHOR : %s\n\nMODE : %s",module._VERSION,module._NAME,module._STATUS,module._AUTHOR,system.gameMode),n)
 		end
