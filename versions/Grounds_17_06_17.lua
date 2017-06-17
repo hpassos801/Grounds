@@ -57,7 +57,7 @@ table.concat = function(list,sep,f,i,j)
 	sep = sep or ""
 	i,j = i or 1,j or #list
 	for k,v in next,list do
-		if k >= i and k <= j then
+		if type(k) == "number" and k >= i and k <= j then
 			txt = txt .. (f and f(k,v) or v) .. sep
 		end
 	end
@@ -2119,7 +2119,6 @@ mode.grounds = {
 		end
 		
 		if system.isPlayer(n) then
-			tfm.exec.lowerSyncDelay(n)
 			for _,key in next,mode.grounds.bindKeys do
 				if key < 4 then
 					system.bindKeyboard(n,key,false,true)
@@ -4753,7 +4752,7 @@ mode.bootcampP = {
 	-- Maps
 	maps = {},
 	map = function()
-		mode.bootcampP.maps = {6501305,6118143,2604997,2836937,6921682,3339586,5776126,5678468,5731571,6531399,6794559,5847160,5745650,7091808,7000003,6999993,4559999,4784241,3883780,4976520,4854044,6374076,3636206,3883883,6793803,4499335,4694197,5485847,6258690,3938895,1719709,4209243,6550335,5994088,3866650,3999455,4095418,4523127,1964971,1554670,4423047,764650,6079942,5562230,4883346,2978216,1947288,7025830,6822222,7096798,7108857,4766627,5888889,6782978,7035277,7151255,5699275,6422459,2634659,4808290,3620953,2973289,2604643,6591698,7134487,7054821,6928736,6930231,6900009,7159725,3737744,6933187,6864581,6807369,4701337,5277821,263226,6631702,6761156,4212122,7035055,6654599,4160675,4623227,5191670,7163009,6377984,1132272,2781845,7162779,3460976,2250757,7130399,7167027}
+		mode.bootcampP.maps = {6501305,6118143,2604997,2836937,6921682,3339586,5776126,5678468,5731571,6531399,6794559,5847160,5745650,7091808,7000003,6999993,4559999,4784241,3883780,4976520,4854044,6374076,3636206,3883883,6793803,4499335,4694197,5485847,6258690,3938895,1719709,4209243,6550335,5994088,3866650,3999455,4095418,4523127,1964971,1554670,4423047,764650,6079942,5562230,4883346,2978216,1947288,7025830,6822222,7096798,7108857,4766627,5888889,6782978,7035277,7151255,5699275,6422459,2634659,4808290,3620953,2973289,2604643,6591698,7134487,7054821,6928736,6930231,6900009,7159725,3737744,6933187,6864581,6807369,4701337,5277821,263226,6631702,6761156,4212122,7035055,6654599,4160675,4623227,5191670,7163009,6377984,1132272,2781845,7162779,3460976,2250757,7130399,7167027,4834444,3734991,7138019,7037760,6550751,6521356,6502657,6469688,6092666,2749928,7175796,7142063}
 	end,
 	-- New Game Settings
 	groundsData = {},
@@ -5537,6 +5536,7 @@ system.objects = {
 	textarea = {}
 }
 eventModeChanged = function()
+	-- Remove content
 	for k in next,system.objects.image do
 		tfm.exec.removeImage(k)
 	end
@@ -5550,16 +5550,33 @@ eventModeChanged = function()
 		textarea = {}
 	}
 	
-	ui.addPopup(1,0,"",nil,-1500,-1500)
+	ui.addPopup(0,0,"",nil,-1500,-1500)
+	
+	-- Unbind keyboard and mouse, also normalize color name and scores
 	for k in next,tfm.get.room.playerList do
 		for i = 0,255 do
 			for v = 0,1 do
 				system.bindKeyboard(k,i,v == 0,false)
 			end
 		end
+		
+		system.bindMouse(k,false)
+		
+		tfm.exec.setNameColor(k,-1)
+		tfm.exec.setPlayerScore(k,0)
 	end
 	
+	-- Set admin back
 	system.roomAdmins = {Bolodefchoco = true}
+	
+	-- Reset settings
+	for k,v in next,{"AutoScore","WatchCommand","AutoNewGame","AutoShaman","AllShamanSkills","MortCommand","DebugCommand","MinimalistMode","AfkDeath","PhysicalConsumables","AutoTimeLeft"} do
+		tfm.exec["disable" .. v](false)
+	end
+	tfm.exec.setAutoMapFlipMode()
+	
+	tfm.exec.setRoomMaxPlayers(25)
+	tfm.exec.setRoomPassword("")	
 end
 
 --[[ Event Functions ]]--
@@ -5574,6 +5591,7 @@ events.eventChatCommand = function(n,c)
 	disableChatCommand(c)
 	if not system.isRoom then
 		if c == "refresh" then
+			eventModeChanged()
 			system.init()
 		else
 			if module._FREEACCESS[n] and os.time() > system.modeChanged and os.time() > system.newGameTimer then
@@ -5584,19 +5602,27 @@ events.eventChatCommand = function(n,c)
 			end
 		end
 	end
-	if string.sub(1,6) == "module" then
-		c = string.upper(string.sub(8))
+	if string.sub(c,1,6) == "module" then
+		c = string.upper(string.sub(c,8))
 		if module["_" .. c] then
 			tfm.exec.chatMessage(c .. " : " .. table.concat(table.turnTable(module["_" .. c]),", "),n)
 		else
 			tfm.exec.chatMessage(string.format("VERSION : %s\nNAME : %s\nSTATUS : %s\nAUTHOR : %s\n\nMODE : %s",module._VERSION,module._NAME,module._STATUS,module._AUTHOR,system.gameMode),n)
 		end
+	elseif c == "modes" then
+		tfm.exec.chatMessage(table.concat(system.submodes,"\n",function(k,v)
+			return "#" .. system.normalizedModeName(v)
+		end),n)
+	elseif c == "admin" then
+		tfm.exec.chatMessage(table.concat(system.roomAdmins,", ",tostring),n)
 	elseif c == "stop" and system.roomAdmins[n] then
 		system.exit()
 	end
 end
 
 events.eventNewPlayer = function(n)
+	tfm.exec.lowerSyncDelay(n)
+	
 	if system.officialMode[2] ~= "" then
 		tfm.exec.chatMessage(system.officialMode[2],n)
 	end
