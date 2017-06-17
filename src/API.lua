@@ -1,6 +1,9 @@
 	-- Timers
 system.newGameTimer = 0
 
+	-- Control
+system.officialMode = {"",""}
+
 	-- Improvements
 table.concat = function(list,sep,f,i,j)
 	local txt = ""
@@ -95,7 +98,6 @@ system.players = function(alivePlayers)
 end
 
 	-- System
-system.officialMode = {"",""}
 currentTime,leftTime = 0,0
 system.loadTable = function(s)
 	-- "a.b.c.1" returns a[b][c][1]
