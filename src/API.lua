@@ -10,7 +10,7 @@ table.concat = function(list,sep,f,i,j)
 	sep = sep or ""
 	i,j = i or 1,j or #list
 	for k,v in next,list do
-		if type(k) == "number" and k >= i and k <= j then
+		if type(k) == "number" and (k >= i and k <= j) or true then
 			txt = txt .. (f and f(k,v) or v) .. sep
 		end
 	end
