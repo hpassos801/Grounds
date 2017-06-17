@@ -41,7 +41,7 @@ system.setRoom = function()
 		}
 		for k,v in next,officialModes do
 			if string.find(system.roomAttributes,v[1] .. "$") then
-				system.officialModeMessage = v[2]
+				system.officialMode = {v[1],v[2]}
 				break
 			end
 		end
