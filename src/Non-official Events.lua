@@ -26,4 +26,4 @@ eventModeChanged = function()
 	end
 end
 
-system.officialModeMessage = {"",""}
+system.officialMode = {"",""}
