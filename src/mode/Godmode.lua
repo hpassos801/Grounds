@@ -59,12 +59,17 @@ mode.godmode = {
 	end,
 	-- Init
 	init = function()
+		-- Translations
 		mode.godmode.translations.pt = mode.godmode.translations.br
 		mode.godmode.langue = mode.godmode.translations[tfm.get.room.community] and tfm.get.room.community or "en"
 
+		-- Init
 		tfm.exec.disableAutoNewGame()
 		tfm.exec.disableAllShamanSkills()
 		tfm.exec.newGame("#4")
+		
+		-- Auto Admin
+		system.roomAdmins.Mcqv = true
 	end,
 	-- New Player
 	eventNewPlayer = function(n)
