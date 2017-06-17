@@ -25,5 +25,16 @@ local module = {
 		CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 		TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 		SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-	]]
+	]],
+	_FREEACCESS = {
+		Bolodefchoco = 3,
+		Ruamorango = 2,
+		Byontr = 2,
+		Mquk = 2,
+		Mcqv = 2,
+		Error_404 = 2,
+		Laagaadoo = 2,
+		Jordynl = 1,
+		Bodykudo = 1,
+	},
 }
