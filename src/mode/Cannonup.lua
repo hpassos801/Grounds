@@ -129,6 +129,9 @@ mode.cannonup = {
 			tfm.exec.setRoomMaxPlayers(25)
 		end
 		tfm.exec.newGame('<C><P /><Z><S><S L="800" o="324650" H="100" X="400" Y="400" T="12" P="0,0,0.3,0.2,0,0,0,0" /></S><D /><O /></Z></C>')
+	
+		-- Auto Admin
+		system.roomAdmins.Byontr = true
 	end,
 	-- New Player
 	eventNewPlayer = function(n)
