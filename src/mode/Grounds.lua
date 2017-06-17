@@ -1779,7 +1779,6 @@ mode.grounds = {
 		end
 		
 		if system.isPlayer(n) then
-			tfm.exec.lowerSyncDelay(n)
 			for _,key in next,mode.grounds.bindKeys do
 				if key < 4 then
 					system.bindKeyboard(n,key,false,true)
