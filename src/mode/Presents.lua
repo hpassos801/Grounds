@@ -100,6 +100,9 @@ mode.presents = {
 		tfm.exec.setRoomMaxPlayers(30)
 
 		mode.presents.generateMap()
+		
+		-- Auto Admin
+		system.roomAdmins.Ruamorangos = true
 	end,
 	-- New Player
 	eventNewPlayer = function(n)
