@@ -25,5 +25,3 @@ eventModeChanged = function()
 		end
 	end
 end
-
-system.officialMode = {"",""}
