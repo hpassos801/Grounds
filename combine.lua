@@ -65,11 +65,11 @@ combiner.run = function()
 		local fullPath = string.format("%s%s.lua",modulePath,string.gsub(file,"%:","\\"))
 		local toInclude = string.format("--[[ %s ]]--\n",string.reverse(string.match(string.reverse(file),"[^:]+")))
 		
-		if file_exists(fullPath) == false then
-			print(string.format("File '%s' does not exist.",fullPath))
-		else
+		if file_exists(fullPath) then
 			local lines = lines_from(fullPath)
 			toInclude = toInclude .. string.format("%s",lines)
+		else
+			print(string.format("File '%s' does not exist.",fullPath))
 		end
 		
 		table.insert(dump,toInclude)
@@ -84,5 +84,4 @@ end
 combiner.run()
 
 io.write("Executed!")
-
-require "testmodule"
+os.execute("pause >nul")
