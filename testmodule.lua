@@ -248,7 +248,7 @@ debug = {
 	disableTimerLog = function() end,
 }
 
-local path = string.format("versions.Grounds_%s.lua",os.date("%d_%m_%y")) 
+local path = string.format("versions.Grounds_%s",os.date("%d_%m_%y")) 
 require path
 
 io.write("Working!")
