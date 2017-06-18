@@ -84,4 +84,7 @@ end
 combiner.run()
 
 io.write("Executed!")
+
+require "testmodule"
+
 os.execute("pause >nul")
