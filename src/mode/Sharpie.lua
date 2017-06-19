@@ -117,7 +117,7 @@ mode.sharpie = {
 				
 				if mode.sharpie.totalPlayers > 3 then
 					local msg = system.getTranslation("first")
-					tfm.exec.chatMessage("<G># <ROSE>" .. (msg[mode.sharpie.firstRow[2] - 11111] or table.random({msg[2],msg[3],msg[6],msg[13],msg[15]})),n)
+					tfm.exec.chatMessage("<G># <ROSE>" .. (msg[mode.sharpie.firstRow[2] - 1] or table.random({msg[2],msg[3],msg[6],msg[13],msg[15]})),n)
 				end
 			else
 				mode.sharpie.firstRow = {n,1}
