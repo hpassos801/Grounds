@@ -140,7 +140,7 @@ mode.sharpie = {
 		if mode.sharpie.hardmode and _G.currentTime % 14 == 0 then
 			system.newTimer(function()
 				local x,y = math.random(0,mode.sharpie.mapInfo[1]),math.random(0,mode.sharpie.mapInfo[2])
-				local id = tfm.exec.addImage(table.random(mode.sharpie.modeImages) .. ".png","&0",x,y)
+				local id = tfm.exec.addImage(table.random(mode.sharpie.modeImages) .. ".png","&0",x - 56,y - 51) -- 112x103 img
 				system.newTimer(function()
 					tfm.exec.removeImage(id)
 
