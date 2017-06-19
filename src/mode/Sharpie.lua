@@ -76,6 +76,8 @@ mode.sharpie = {
 		-- Init
 		tfm.exec.disableAutoShaman()
 		tfm.exec.disableAutoScore()
+		
+		tfm.exec.newGame()
 	end,
 	-- New Game
 	eventNewGame = function()
